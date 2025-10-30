@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AEESS - Association des Élèves et Étudiants Soninké à Saint-Louis</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #2d7a3e;
+            --light-green: #4a9d5f;
+            --dark-green: #1a5229;
+            --bg-light: #f8f9fa;
+            --text-dark: #333;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--primary-green);
+            color: var(--white);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .logo img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .btn {
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--primary-green);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--dark-green);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--primary-green);
+            border: 2px solid var(--primary-green);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-green);
+            color: var(--white);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--dark-green) 100%);
+            color: var(--white);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Sections */
+        section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section:nth-child(even) {
+            background: var(--bg-light);
+        }
+
+        h2 {
+            color: var(--primary-green);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        /* Actions Grid */
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .action-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .action-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .action-card h3 {
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+
+        /* Crisis Section */
+        .crisis-alert {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 5px;
+        }
+
+        .crisis-alert h3 {
+            color: #856404;
+            margin-bottom: 1rem;
+        }
+
+        /* Donation Section */
+        .donation-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .payment-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .payment-card h3 {
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+
+        .payment-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-green);
+            margin: 1rem 0;
+        }
+
+        /* Impact Calculator */
+        .impact-examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .impact-item {
+            background: var(--light-green);
+            color: var(--white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .impact-amount {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Login/Register Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 400px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        /* Member Dashboard */
+        .dashboard {
+            display: none;
+        }
+
+        .dashboard.active {
+            display: block;
+        }
+
+        .dashboard-nav {
+            background: var(--bg-light);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-nav button {
+            margin-right: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .post-card {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .post-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-green);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .post-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .post-actions button {
+            background: none;
+            border: none;
+            color: var(--primary-green);
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        /* Document Library */
+        .documents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .document-card {
+            background: var(--white);
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .document-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .document-icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-green);
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero-stats {
+                gap: 1.5rem;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--primary-green);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 2rem auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <span>AEESS</span>
+            </div>
+            <ul class="nav-links" id="publicNav">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#apropos">À propos</a></li>
+                <li><a href="#actions">Nos Actions</a></li>
+                <li><a href="#crise">Crise du Logement</a></li>
+                <li><a href="#dons">Soutenez-nous</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div>
+                <button class="btn btn-secondary" id="loginBtn" onclick="showLogin()">Connexion</button>
+                <button class="btn btn-primary hidden" id="logoutBtn" onclick="logout()">Déconnexion</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Public Content -->
+    <div id="publicContent">
+        <!-- Hero Section -->
+        <section class="hero" id="accueil">
+            <h1>ENSEMBLE, SOUTENONS NOS ÉTUDIANTS</h1>
+            <p>L'Association des Élèves et Étudiants Soninké à Saint-Louis accueille et accompagne les nouveaux bacheliers orientés à l'Université Gaston Berger</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number">30+</div>
+                    <div class="stat-label">Nouveaux étudiants 2025</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">280K</div>
+                    <div class="stat-label">FCFA de caution payée</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">10+</div>
+                    <div class="stat-label">Années d'existence</div>
+                </div>
+            </div>
+            <div style="margin-top: 2rem;">
+                <a href="#dons" class="btn btn-secondary" style="margin-right: 1rem;">Faire un don</a>
+                <button class="btn btn-primary" onclick="showRegister()">Devenir membre</button>
+            </div>
+        </section>
+
+        <!-- À propos -->
+        <section id="apropos">
+            <h2>À Propos de l'AEESS</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 2rem;">
+                L'AEESS est une association à but non lucratif qui, depuis sa création, accueille et accompagne les nouveaux bacheliers orientés à l'Université Gaston Berger de Saint-Louis. Notre mission : garantir leur épanouissement social et éducatif à travers un accompagnement global.
+            </p>
+            <div class="crisis-alert">
+                <h3>🏠 Notre Mission Principale : Résoudre la Crise du Logement</h3>
+                <p>L'UGB manque cruellement d'infrastructures de logement. Les anciens étudiants membres de l'AEESS proposent d'héberger nos frères et sœurs dans leurs chambres universitaires, mais nous ne pouvons qu'en accueillir un nombre limité. Pour les autres, l'AEESS cherche des logements aux alentours, ce qui coûte très cher. L'association se finance grâce aux cotisations des anciens et au soutien de bonnes volontés.</p>
+            </div>
+        </section>
+
+        <!-- Nos Actions -->
+        <section id="actions">
+            <h2>Nos Actions</h2>
+            <div class="actions-grid">
+                <div class="action-card">
+                    <h3>🏠 Hébergement & Logement</h3>
+                    <p>Accueil dans les chambres universitaires et recherche de logements privés pour les nouveaux étudiants</p>
+                </div>
+                <div class="action-card">
+                    <h3>📋 Accompagnement Administratif</h3>
+                    <p>Aide aux démarches d'inscription à l'UGB en collaboration avec les associations pédagogiques des UFR</p>
+                </div>
+                <div class="action-card">
+                    <h3>📚 Soutien Pédagogique</h3>
+                    <p>Programme de mentorat (jumelage ancien/nouveau), aide aux cours, TP, TD et préparation d'examens</p>
+                </div>
+                <div class="action-card">
+                    <h3>🎓 Formations</h3>
+                    <p>Prise de parole en public, gestion de conflits, développement personnel</p>
+                </div>
+                <div class="action-card">
+                    <h3>⚽ Activités Sportives</h3>
+                    <p>Organisation de matchs de football pour renforcer la cohésion entre étudiants</p>
+                </div>
+                <div class="action-card">
+                    <h3>🎉 Journées d'Intégration</h3>
+                    <p>Événements d'accueil, thés débats et conférences pour mieux se connaître</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Crise du Logement -->
+        <section id="crise">
+            <h2>🚨 La Crise du Logement à l'UGB</h2>
+            <div class="crisis-alert">
+                <h3>La Réalité sur le Terrain</h3>
+                <ul style="margin-left: 2rem; margin-top: 1rem;">
+                    <li><strong>30 nouveaux bacheliers</strong> accueillis en 2025</li>
+                    <li><strong>280 000 FCFA</strong> de caution pour un seul appartement (3 chambres)</li>
+                    <li><strong>30 000 à 50 000 FCFA</strong> de loyer mensuel par logement</li>
+                    <li><strong>150 000 FCFA</strong> prélevés de la caisse de l'association</li>
+                    <li><strong>Croissance continue</strong> du nombre d'étudiants chaque année</li>
+                </ul>
+            </div>
+            <p style="text-align: center; margin-top: 2rem; font-size: 1.1rem;">
+                <strong>Sans votre aide, nous ne pouvons pas continuer notre mission.</strong><br>
+                Chaque contribution compte pour offrir un toit à nos étudiants.
+            </p>
+        </section>
+
+        <!-- Dons -->
+        <section id="dons">
+            <h2>💚 Soutenez-nous</h2>
+            <p style="text-align: center; margin-bottom: 2rem;">
+                Un simple geste peut changer un parcours. Participez à la cagnotte de l'AEESS et contribuez à l'avenir de nos étudiants.
+            </p>
+
+            <div class="impact-examples">
+                <div class="impact-item">
+                    <div class="impact-amount">15 000 F</div>
+                    <div>Contribution d'un étudiant à sa caution</div>
+                </div>
+                <div class="impact-item">
+                    <div class="impact-amount">30 000 F</div>
+                    <div>Loyer mensuel minimum d'un logement</div>
+                </div>
+                <div class="impact-item">
+                    <div class="impact-amount">50 000 F</div>
+                    <div>Loyer mensuel complet</div>
+                </div>
+                <div class="impact-item">
+                    <div class="impact-amount">280 000 F</div>
+                    <div>Caution complète d'un appartement</div>
+                </div>
+            </div>
+
+            <h3 style="text-align: center; margin-top: 3rem; margin-bottom: 2rem;">Moyens de Paiement</h3>
+            <div class="donation-methods">
+                <div class="payment-card">
+                    <h3>📱 Wave</h3>
+                    <div class="payment-number">78 247 74 12</div>
+                    <p>Envoyez votre contribution via Wave</p>
+                </div>
+                <div class="payment-card">
+                    <h3>📱 Orange Money</h3>
+                    <div class="payment-number">78 488 89 04</div>
+                    <p>Envoyez votre contribution via Orange Money</p>
+                </div>
+            </div>
+
+            <p style="text-align: center; margin-top: 2rem; font-style: italic;">
+                Infoline : <strong>+221 78 374 89 95</strong>
+            </p>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact">
+            <h2>📞 Contactez-nous</h2>
+            <div style="max-width: 600px; margin: 0 auto;">
+                <div class="action-card" style="text-align: center;">
+                    <p><strong>Email :</strong> aeesssonikara@gmail.com</p>
+                    <p><strong>Téléphone :</strong> +221 78 374 89 95</p>
+                    <p><strong>Localisation :</strong> Sanar Peul, Saint-Louis, Sénégal</p>
+                    <p style="margin-top: 1rem;">Université Gaston Berger de Saint-Louis</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Member Dashboard -->
+    <div id="memberDashboard" class="dashboard">
+        <section>
+            <h2>Tableau de Bord Membre</h2>
+            <div class="dashboard-nav">
+                <button class="btn btn-primary" onclick="showDashboardSection('feed')">Fil d'actualité</button>
+                <button class="btn btn-secondary" onclick="showDashboardSection('documents')">Documents</button>
+                <button class="btn btn-secondary" onclick="showDashboardSection('profile')">Mon Profil</button>
+            </div>
+
+            <!-- Feed Section -->
+            <div id="feedSection">
+                <h3>Fil d'Actualité</h3>
+                <div class="action-card">
+                    <div class="form-group">
+                        <textarea id="newPostContent" placeholder="Partagez quelque chose avec la communauté..." rows="3"></textarea>
+                    </div>
+                    <button class="btn btn-primary" onclick="createPost()">Publier</button>
+                </div>
+                <div id="postsContainer">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+
+            <!-- Documents Section -->
+            <div id="documentsSection" class="hidden">
+                <h3>Bibliothèque de Documents</h3>
+                <div class="action-card">
+                    <h4>Ajouter un document</h4>
+                    <div class="form-group">
+                        <input type="text" id="docTitle" placeholder="Titre du document">
+                    </div>
+                    <div class="form-group">
+                        <select id="docUFR">
+                            <option value="">Sélectionner UFR</option>
+                            <option value="SAT">Sciences Appliquées et Technologie</option>
+                            <option value="LSH">Lettres et Sciences Humaines</option>
+                            <option value="SEG">Sciences Économiques et Gestion</option>
+                            <option value="SJP">Sciences Juridiques et Politiques</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="file" id="docFile">
+                    </div>
+                    <button class="btn btn-primary" onclick="uploadDocument()">Télécharger</button>
+                </div>
+                <div id="documentsContainer" class="documents-grid">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+
+            <!-- Profile Section -->
+            <div id="profileSection" class="hidden">
+                <h3>Mon Profil</h3>
+                <div class="action-card">
+                    <div id="profileInfo"></div>
+                    <button class="btn btn-secondary" onclick="editProfile()">Modifier</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <h2>Connexion</h2>
+            <form id="loginForm" onsubmit="login(event)">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Mot de passe</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Se connecter</button>
+                <p style="text-align: center; margin-top: 1rem;">
+                    Pas encore membre ? <a href="#" onclick="showRegister()">S'inscrire</a>
+                </p>
+                <button type="button" class="btn btn-secondary" onclick="closeModal()" style="width: 100%; margin-top: 1rem;">Annuler</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <h2>Inscription</h2>
+            <form id="registerForm" onsubmit="register(event)">
+                <div class="form-group">
+                    <label>Nom complet</label>
+                    <input type="text" id="registerName" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Mot de passe</label>
+                    <input type="password" id="registerPassword" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label>Téléphone</label>
+                    <input type="tel" id="registerPhone" required>
+                </div>
+                <div class="form-group">
+                    <label>UFR</label>
+                    <select id="registerUFR" required>
+                        <option value="">Sélectionner votre UFR</option>
+                        <option value="SAT">Sciences Appliquées et Technologie</option>
+                        <option value="LSH">Lettres et Sciences Humaines</option>
+                        <option value="SEG">Sciences Économiques et Gestion</option>
+                        <option value="SJP">Sciences Juridiques et Politiques</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Année d'études</label>
+                    <select id="registerYear" required>
+                        <option value="">Sélectionner</option>
+                        <option value="L1">Licence 1</option>
+                        <option value="L2">Licence 2</option>
+                        <option value="L3">Licence 3</option>
+                        <option value="M1">Master 1</option>
+                        <option value="M2">Master 2</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Statut</label>
+                    <select id="registerStatus" required>
+                        <option value="">Sélectionner</option>
+                        <option value="nouveau">Nouveau bachelier</option>
+                        <option value="ancien">Ancien étudiant</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">S'inscrire</button>
+                <p style="text-align: center; margin-top: 1rem;">
+                    Déjà membre ? <a href="#" onclick="showLogin()">Se connecter</a>
+                </p>
+                <button type="button" class="btn btn-secondary" onclick="closeModal()" style="width: 100%; margin-top: 1rem;">Annuler</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#accueil">Accueil</a>
+                <a href="#apropos">À propos</a>
+                <a href="#actions">Nos Actions</a>
+                <a href="#dons">Soutenez-nous</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <p>&copy; 2025 AEESS - Association des Élèves et Étudiants Soninké à Saint-Louis</p>
+            <p>Soninkara djiké na rémou nè</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Supabase
+        const SUPABASE_URL = 'https://wshjyzkwcmlqmldrmjrh.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndzaGp5emt3Y21scW1sZHJtanJoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE4NTcxODYsImV4cCI6MjA3NzQzMzE4Nn0.VzxNLTXg9bUZNUgZF-bqXEefjVNTcIIT-Svgi1nDSyo';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        let currentUser = null;
+
+        // Check if user is logged in
+        async function checkAuth() {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session) {
+                currentUser = session.user;
+                showMemberDashboard();
+            }
+        }
+
+        // Modal Functions
+        function showLogin() {
+            closeModal();
+            document.getElementById('loginModal').classList.add('active');
+        }
+
+        function showRegister() {
+            closeModal();
+            document.getElementById('registerModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('loginModal').classList.remove('active');
+            document.getElementById('registerModal').classList.remove('active');
+        }
+
+        // Login
+        async function login(event) {
+            event.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email: email,
+                password: password
+            });
+
+            if (error) {
+                alert('Erreur de connexion: ' + error.message);
+            } else {
+                currentUser = data.user;
+                closeModal();
+                showMemberDashboard();
+            }
+        }
+
+        // Register
+        async function register(event) {
+            event.preventDefault();
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const name = document.getElementById('registerName').value;
+            const phone = document.getElementById('registerPhone').value;
+            const ufr = document.getElementById('registerUFR').value;
+            const year = document.getElementById('registerYear').value;
+            const status = document.getElementById('registerStatus').value;
+
+            const { data, error } = await supabase.auth.signUp({
+                email: email,
+                password: password,
+                options: {
+                    data: {
+                        full_name: name,
+                        phone: phone,
+                        ufr: ufr,
+                        year: year,
+                        status: status
+                    }
+                }
+            });
+
+            if (error) {
+                alert('Erreur d\'inscription: ' + error.message);
+            } else {
+                alert('Inscription réussie! Vérifiez votre email pour confirmer votre compte.');
+                closeModal();
+            }
+        }
+
+        // Logout
+        async function logout() {
+            await supabase.auth.signOut();
+            currentUser = null;
+            showPublicContent();
+        }
+
+        // Show Member Dashboard
+        function showMemberDashboard() {
+            document.getElementById('publicContent').style.display = 'none';
+            document.getElementById('memberDashboard').classList.add('active');
+            document.getElementById('loginBtn').classList.add('hidden');
+            document.getElementById('logoutBtn').classList.remove('hidden');
+            loadPosts();
+            loadDocuments();
+            loadProfile();
+        }
+
+        // Show Public Content
+        function showPublicContent() {
+            document.getElementById('publicContent').style.display = 'block';
+            document.getElementById('memberDashboard').classList.remove('active');
+            document.getElementById('loginBtn').classList.remove('hidden');
+            document.getElementById('logoutBtn').classList.add('hidden');
+        }
+
+        // Dashboard Navigation
+        function showDashboardSection(section) {
+            document.getElementById('feedSection').classList.add('hidden');
+            document.getElementById('documentsSection').classList.add('hidden');
+            document.getElementById('profileSection').classList.add('hidden');
+
+            if (section === 'feed') {
+                document.getElementById('feedSection').classList.remove('hidden');
+            } else if (section === 'documents') {
+                document.getElementById('documentsSection').classList.remove('hidden');
+            } else if (section === 'profile') {
+                document.getElementById('profileSection').classList.remove('hidden');
+            }
+        }
+
+        // Create Post
+        async function createPost() {
+            const content = document.getElementById('newPostContent').value;
+            if (!content.trim()) {
+                alert('Veuillez entrer du contenu');
+                return;
+            }
+
+            const { data, error } = await supabase
+                .from('posts')
+                .insert([
+                    {
+                        user_id: currentUser.id,
+                        content: content,
+                        author_name: currentUser.user_metadata.full_name
+                    }
+                ]);
+
+            if (error) {
+                alert('Erreur lors de la publication: ' + error.message);
+            } else {
+                document.getElementById('newPostContent').value = '';
+                loadPosts();
+            }
+        }
+
+        // Load Posts
+        async function loadPosts() {
+            const { data, error } = await supabase
+                .from('posts')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            const container = document.getElementById('postsContainer');
+            
+            if (error) {
+                container.innerHTML = '<p>Erreur de chargement des posts</p>';
+                return;
+            }
+
+            if (!data || data.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #666;">Aucune publication pour le moment. Soyez le premier à publier!</p>';
+                return;
+            }
+
+            container.innerHTML = data.map(post => `
+                <div class="post-card">
+                    <div class="post-header">
+                        <div class="post-avatar">${post.author_name ? post.author_name.charAt(0).toUpperCase() : 'U'}</div>
+                        <div>
+                            <strong>${post.author_name || 'Utilisateur'}</strong>
+                            <div style="font-size: 0.8rem; color: #666;">${new Date(post.created_at).toLocaleDateString('fr-FR')}</div>
+                        </div>
+                    </div>
+                    <div>${post.content}</div>
+                    <div class="post-actions">
+                        <button onclick="likePost('${post.id}')">👍 J'aime</button>
+                        <button>💬 Commenter</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Like Post
+        async function likePost(postId) {
+            // Simple like - you can expand this with a likes table
+            alert('Fonctionnalité à venir!');
+        }
+
+        // Upload Document
+        async function uploadDocument() {
+            const title = document.getElementById('docTitle').value;
+            const ufr = document.getElementById('docUFR').value;
+            const fileInput = document.getElementById('docFile');
+            const file = fileInput.files[0];
+
+            if (!title || !ufr || !file) {
+                alert('Veuillez remplir tous les champs');
+                return;
+            }
+
+            // Upload file to Supabase Storage
+            const fileName = `${Date.now()}_${file.name}`;
+            const { data: uploadData, error: uploadError } = await supabase.storage
+                .from('documents')
+                .upload(fileName, file);
+
+            if (uploadError) {
+                alert('Erreur de téléchargement: ' + uploadError.message);
+                return;
+            }
+
+            // Get public URL
+            const { data: urlData } = supabase.storage
+                .from('documents')
+                .getPublicUrl(fileName);
+
+            // Save document info to database
+            const { error } = await supabase
+                .from('documents')
+                .insert([
+                    {
+                        title: title,
+                        ufr: ufr,
+                        file_url: urlData.publicUrl,
+                        uploaded_by: currentUser.id,
+                        uploader_name: currentUser.user_metadata.full_name
+                    }
+                ]);
+
+            if (error) {
+                alert('Erreur lors de l\'enregistrement: ' + error.message);
+            } else {
+                document.getElementById('docTitle').value = '';
+                document.getElementById('docUFR').value = '';
+                document.getElementById('docFile').value = '';
+                loadDocuments();
+            }
+        }
+
+        // Load Documents
+        async function loadDocuments() {
+            const { data, error } = await supabase
+                .from('documents')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            const container = document.getElementById('documentsContainer');
+            
+            if (error) {
+                container.innerHTML = '<p>Erreur de chargement des documents</p>';
+                return;
+            }
+
+            if (!data || data.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #666; grid-column: 1/-1;">Aucun document disponible.</p>';
+                return;
+            }
+
+            container.innerHTML = data.map(doc => `
+                <div class="document-card" onclick="window.open('${doc.file_url}', '_blank')">
+                    <div class="document-icon">📄</div>
+                    <strong>${doc.title}</strong>
+                    <div style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">${doc.ufr}</div>
+                    <div style="font-size: 0.8rem; color: #999; margin-top: 0.3rem;">Par ${doc.uploader_name || 'Anonyme'}</div>
+                </div>
+            `).join('');
+        }
+
+        // Load Profile
+        async function loadProfile() {
+            const container = document.getElementById('profileInfo');
+            const user = currentUser;
+            
+            container.innerHTML = `
+                <div class="form-group">
+                    <label>Nom complet</label>
+                    <p><strong>${user.user_metadata.full_name || 'Non renseigné'}</strong></p>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <p><strong>${user.email}</strong></p>
+                </div>
+                <div class="form-group">
+                    <label>Téléphone</label>
+                    <p><strong>${user.user_metadata.phone || 'Non renseigné'}</strong></p>
+                </div>
+                <div class="form-group">
+                    <label>UFR</label>
+                    <p><strong>${user.user_metadata.ufr || 'Non renseigné'}</strong></p>
+                </div>
+                <div class="form-group">
+                    <label>Année d'études</label>
+                    <p><strong>${user.user_metadata.year || 'Non renseigné'}</strong></p>
+                </div>
+                <div class="form-group">
+                    <label>Statut</label>
+                    <p><strong>${user.user_metadata.status === 'nouveau' ? 'Nouveau bachelier' : 'Ancien étudiant'}</strong></p>
+                </div>
+            `;
+        }
+
+        // Edit Profile
+        function editProfile() {
+            alert('Fonctionnalité de modification du profil à venir!');
+        }
+
+        // Initialize app
+        checkAuth();
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
