@@ -16,30 +16,34 @@
             --primary-green: #2d7a3e;
             --light-green: #4a9d5f;
             --dark-green: #1a5229;
-            --bg-light: #f8f9fa;
-            --text-dark: #333;
+            --bg-light: #f0f2f5;
             --white: #ffffff;
+            --text-dark: #333;
+            --border: #e4e6eb;
+            --hover-bg: #f2f3f5;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             line-height: 1.6;
             color: var(--text-dark);
+            background: var(--bg-light);
         }
 
         /* Navigation */
         nav {
-            background: var(--primary-green);
-            color: var(--white);
-            padding: 1rem 2rem;
+            background: var(--white);
+            color: var(--text-dark);
+            padding: 0.5rem 1rem;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-bottom: 1px solid var(--border);
         }
 
         .nav-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -49,40 +53,63 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            font-size: 1.2rem;
+            gap: 0.5rem;
+            font-size: 1.4rem;
             font-weight: bold;
+            color: var(--primary-green);
         }
 
         .logo img {
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 1rem;
             list-style: none;
         }
 
         .nav-links a {
-            color: var(--white);
+            color: var(--text-dark);
             text-decoration: none;
-            transition: opacity 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: background 0.2s;
         }
 
         .nav-links a:hover {
-            opacity: 0.8;
+            background: var(--hover-bg);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-green);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            cursor: pointer;
         }
 
         .btn {
-            padding: 0.7rem 1.5rem;
+            padding: 0.6rem 1.2rem;
             border: none;
-            border-radius: 5px;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.2s;
             text-decoration: none;
             display: inline-block;
         }
@@ -97,14 +124,13 @@
         }
 
         .btn-secondary {
-            background: var(--white);
+            background: var(--bg-light);
             color: var(--primary-green);
-            border: 2px solid var(--primary-green);
+            border: 1px solid var(--border);
         }
 
         .btn-secondary:hover {
-            background: var(--primary-green);
-            color: var(--white);
+            background: var(--hover-bg);
         }
 
         /* Hero Section */
@@ -158,7 +184,7 @@
         }
 
         section:nth-child(even) {
-            background: var(--bg-light);
+            background: var(--white);
         }
 
         h2 {
@@ -179,13 +205,15 @@
         .action-card {
             background: var(--white);
             padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid var(--border);
         }
 
         .action-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
         .action-card h3 {
@@ -199,7 +227,7 @@
             border-left: 5px solid #ffc107;
             padding: 2rem;
             margin: 2rem 0;
-            border-radius: 5px;
+            border-radius: 8px;
         }
 
         .crisis-alert h3 {
@@ -218,9 +246,10 @@
         .payment-card {
             background: var(--white);
             padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             text-align: center;
+            border: 1px solid var(--border);
         }
 
         .payment-card h3 {
@@ -247,7 +276,7 @@
             background: var(--light-green);
             color: var(--white);
             padding: 1.5rem;
-            border-radius: 10px;
+            border-radius: 12px;
             text-align: center;
         }
 
@@ -257,7 +286,7 @@
             margin-bottom: 0.5rem;
         }
 
-        /* Login/Register Modal */
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -265,7 +294,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.6);
             z-index: 2000;
             align-items: center;
             justify-content: center;
@@ -278,15 +307,16 @@
         .modal-content {
             background: var(--white);
             padding: 2rem;
-            border-radius: 10px;
-            max-width: 400px;
+            border-radius: 12px;
+            max-width: 450px;
             width: 90%;
             max-height: 90vh;
             overflow-y: auto;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
         }
 
         .form-group label {
@@ -294,52 +324,162 @@
             margin-bottom: 0.5rem;
             color: var(--text-dark);
             font-weight: 500;
+            font-size: 0.95rem;
         }
 
         .form-group input,
         .form-group select,
         .form-group textarea {
             width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
             font-size: 1rem;
+            font-family: inherit;
         }
 
-        /* Member Dashboard */
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-green);
+        }
+
+        /* ===== MEMBER DASHBOARD - FACEBOOK STYLE ===== */
         .dashboard {
             display: none;
+            background: var(--bg-light);
         }
 
         .dashboard.active {
             display: block;
         }
 
-        .dashboard-nav {
-            background: var(--bg-light);
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 280px 1fr 300px;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            min-height: calc(100vh - 70px);
+        }
+
+        /* Left Sidebar */
+        .left-sidebar {
+            position: sticky;
+            top: 70px;
+            height: fit-content;
+        }
+
+        .sidebar-menu {
+            background: var(--white);
+            border-radius: 12px;
             padding: 1rem;
-            border-radius: 10px;
-            margin-bottom: 2rem;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
 
-        .dashboard-nav button {
-            margin-right: 1rem;
-            margin-bottom: 0.5rem;
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-weight: 500;
+            color: var(--text-dark);
         }
 
+        .menu-item:hover {
+            background: var(--hover-bg);
+        }
+
+        .menu-item.active {
+            background: var(--primary-green);
+            color: var(--white);
+        }
+
+        .menu-icon {
+            font-size: 1.5rem;
+        }
+
+        /* Main Feed */
+        .main-feed {
+            max-width: 680px;
+        }
+
+        .create-post-box {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .post-input-area {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .post-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            background: var(--bg-light);
+            font-size: 1rem;
+            resize: none;
+            font-family: inherit;
+        }
+
+        .post-input:focus {
+            outline: none;
+            background: var(--white);
+        }
+
+        .post-actions-bar {
+            display: flex;
+            gap: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .post-action-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            background: none;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            color: #65676b;
+            transition: background 0.2s;
+        }
+
+        .post-action-btn:hover {
+            background: var(--hover-bg);
+        }
+
+        /* Post Card - Facebook Style */
         .post-card {
             background: var(--white);
-            padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            padding: 0;
             margin-bottom: 1.5rem;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
 
         .post-header {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
         }
 
         .post-avatar {
@@ -352,49 +492,308 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .post-author-info {
+            flex: 1;
+        }
+
+        .post-author-name {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .post-time {
+            font-size: 0.85rem;
+            color: #65676b;
+        }
+
+        .post-content {
+            padding: 0 1.5rem 1rem;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .post-stats {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #65676b;
+            font-size: 0.9rem;
         }
 
         .post-actions {
             display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid #eee;
+            border-top: 1px solid var(--border);
+            padding: 0.5rem 0;
         }
 
-        .post-actions button {
+        .post-action {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem;
             background: none;
             border: none;
-            color: var(--primary-green);
             cursor: pointer;
+            color: #65676b;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: background 0.2s;
+            font-size: 0.95rem;
+        }
+
+        .post-action:hover {
+            background: var(--hover-bg);
+        }
+
+        .post-action.liked {
+            color: var(--primary-green);
+        }
+
+        /* Comments Section */
+        .comments-section {
+            padding: 0 1.5rem 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .comment-item {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 0.75rem;
+        }
+
+        .comment-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--primary-green);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .comment-content {
+            flex: 1;
+        }
+
+        .comment-bubble {
+            background: var(--bg-light);
+            padding: 0.75rem 1rem;
+            border-radius: 18px;
+            display: inline-block;
+        }
+
+        .comment-author {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .comment-text {
             font-size: 0.9rem;
         }
 
-        /* Document Library */
+        .comment-time {
+            font-size: 0.8rem;
+            color: #65676b;
+            margin-top: 0.25rem;
+            padding-left: 1rem;
+        }
+
+        .comment-input-area {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+            align-items: center;
+        }
+
+        .comment-input {
+            flex: 1;
+            padding: 0.65rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            background: var(--bg-light);
+            font-size: 0.9rem;
+            font-family: inherit;
+        }
+
+        .comment-input:focus {
+            outline: none;
+            background: var(--white);
+        }
+
+        /* Right Sidebar */
+        .right-sidebar {
+            position: sticky;
+            top: 70px;
+            height: fit-content;
+        }
+
+        .contacts-box, .events-box {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-title {
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: #65676b;
+            margin-bottom: 1rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .contact-item:hover {
+            background: var(--hover-bg);
+        }
+
+        .contact-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--primary-green);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .online-dot {
+            width: 10px;
+            height: 10px;
+            background: #31a24c;
+            border: 2px solid var(--white);
+            border-radius: 50%;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+
+        .contact-name {
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .event-item {
+            padding: 0.75rem;
+            border-radius: 8px;
+            background: var(--bg-light);
+            margin-bottom: 0.75rem;
+        }
+
+        .event-date {
+            font-size: 0.85rem;
+            color: var(--primary-green);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .event-title {
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* Documents Section */
+        .documents-section {
+            padding: 2rem;
+        }
+
+        .upload-box {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
         .documents-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 1rem;
-            margin-top: 2rem;
         }
 
         .document-card {
             background: var(--white);
-            padding: 1rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
             text-align: center;
             cursor: pointer;
-            transition: transform 0.3s;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid var(--border);
         }
 
         .document-card:hover {
-            transform: translateY(-3px);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
         .document-icon {
             font-size: 3rem;
             margin-bottom: 0.5rem;
+        }
+
+        /* Profile Section */
+        .profile-section {
+            padding: 2rem;
+        }
+
+        .profile-header {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .profile-avatar-large {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--primary-green);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+
+        .profile-name {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-info-grid {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
 
         /* Footer */
@@ -403,6 +802,7 @@
             color: var(--white);
             padding: 2rem;
             text-align: center;
+            margin-top: 3rem;
         }
 
         .footer-content {
@@ -423,23 +823,8 @@
             text-decoration: none;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-            
-            .hero-stats {
-                gap: 1.5rem;
-            }
-        }
-
         .hidden {
-            display: none;
+            display: none !important;
         }
 
         /* Loading Spinner */
@@ -457,6 +842,35 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .dashboard-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .left-sidebar, .right-sidebar {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero-stats {
+                gap: 1.5rem;
+            }
+
+            .dashboard-container {
+                padding: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -464,7 +878,7 @@
     <nav>
         <div class="nav-container">
             <div class="logo">
-                <span>AEESS</span>
+                <span>🎓 AEESS</span>
             </div>
             <ul class="nav-links" id="publicNav">
                 <li><a href="#accueil">Accueil</a></li>
@@ -474,9 +888,12 @@
                 <li><a href="#dons">Soutenez-nous</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
-            <div>
-                <button class="btn btn-secondary" id="loginBtn" onclick="showLogin()">Connexion</button>
-                <button class="btn btn-primary hidden" id="logoutBtn" onclick="logout()">Déconnexion</button>
+            <div class="nav-right">
+                <button class="btn btn-primary" id="loginBtn" onclick="showLogin()">Connexion</button>
+                <div id="userMenu" class="hidden">
+                    <div class="user-avatar" id="userAvatar"></div>
+                    <button class="btn btn-secondary" onclick="logout()">Déconnexion</button>
+                </div>
             </div>
         </div>
     </nav>
@@ -515,7 +932,7 @@
             </p>
             <div class="crisis-alert">
                 <h3>🏠 Notre Mission Principale : Résoudre la Crise du Logement</h3>
-                <p>L'UGB manque cruellement d'infrastructures de logement. Les anciens étudiants membres de l'AEESS proposent d'héberger nos frères et sœurs dans leurs chambres universitaires, mais nous ne pouvons qu'en accueillir un nombre limité. Pour les autres, l'AEESS cherche des logements aux alentours, ce qui coûte très cher. L'association se finance grâce aux cotisations des anciens et au soutien de bonnes volontés.</p>
+                <p>L'UGB manque cruellement d'infrastructures de logement. Les anciens étudiants membres de l'AEESS proposent d'héberger nos frères et sœurs dans leurs chambres universitaires, mais nous ne pouvons qu'en accueillir un nombre limité. Pour les autres, l'AEESS cherche des logements aux alentours, ce qui coûte très cher.</p>
             </div>
         </section>
 
@@ -628,84 +1045,192 @@
         </section>
     </div>
 
-    <!-- Member Dashboard -->
+    <!-- Member Dashboard - Facebook Style -->
     <div id="memberDashboard" class="dashboard">
-        <section>
-            <h2>Tableau de Bord Membre</h2>
-            <div class="dashboard-nav">
-                <button class="btn btn-primary" onclick="showDashboardSection('feed')">Fil d'actualité</button>
-                <button class="btn btn-secondary" onclick="showDashboardSection('documents')">Documents</button>
-                <button class="btn btn-secondary" onclick="showDashboardSection('profile')">Mon Profil</button>
-            </div>
-
-            <!-- Feed Section -->
-            <div id="feedSection">
-                <h3>Fil d'Actualité</h3>
-                <div class="action-card">
-                    <div class="form-group">
-                        <textarea id="newPostContent" placeholder="Partagez quelque chose avec la communauté..." rows="3"></textarea>
+        <div class="dashboard-container">
+            <!-- Left Sidebar -->
+            <div class="left-sidebar">
+                <div class="sidebar-menu">
+                    <div class="menu-item active" onclick="showDashboardSection('feed')">
+                        <span class="menu-icon">🏠</span>
+                        <span>Fil d'actualité</span>
                     </div>
-                    <button class="btn btn-primary" onclick="createPost()">Publier</button>
-                </div>
-                <div id="postsContainer">
-                    <div class="spinner"></div>
-                </div>
-            </div>
-
-            <!-- Documents Section -->
-            <div id="documentsSection" class="hidden">
-                <h3>Bibliothèque de Documents</h3>
-                <div class="action-card">
-                    <h4>Ajouter un document</h4>
-                    <div class="form-group">
-                        <input type="text" id="docTitle" placeholder="Titre du document">
+                    <div class="menu-item" onclick="showDashboardSection('documents')">
+                        <span class="menu-icon">📚</span>
+                        <span>Documents</span>
                     </div>
-                    <div class="form-group">
-                        <select id="docUFR">
-                            <option value="">Sélectionner UFR</option>
-                            <option value="SAT">Sciences Appliquées et Technologie</option>
-                            <option value="LSH">Lettres et Sciences Humaines</option>
-                            <option value="SEG">Sciences Économiques et Gestion</option>
-                            <option value="SJP">Sciences Juridiques et Politiques</option>
-                        </select>
+                    <div class="menu-item" onclick="showDashboardSection('events')">
+                        <span class="menu-icon">📅</span>
+                        <span>Événements</span>
                     </div>
-                    <div class="form-group">
-                        <input type="file" id="docFile">
+                    <div class="menu-item" onclick="showDashboardSection('mentorship')">
+                        <span class="menu-icon">🤝</span>
+                        <span>Mon Mentorat</span>
                     </div>
-                    <button class="btn btn-primary" onclick="uploadDocument()">Télécharger</button>
-                </div>
-                <div id="documentsContainer" class="documents-grid">
-                    <div class="spinner"></div>
+                    <div class="menu-item" onclick="showDashboardSection('profile')">
+                        <span class="menu-icon">👤</span>
+                        <span>Mon Profil</span>
+                    </div>
                 </div>
             </div>
 
-            <!-- Profile Section -->
-            <div id="profileSection" class="hidden">
-                <h3>Mon Profil</h3>
-                <div class="action-card">
-                    <div id="profileInfo"></div>
-                    <button class="btn btn-secondary" onclick="editProfile()">Modifier</button>
+            <!-- Main Feed -->
+            <div class="main-feed">
+                <!-- Feed Section -->
+                <div id="feedSection">
+                    <!-- Create Post -->
+                    <div class="create-post-box">
+                        <div class="post-input-area">
+                            <div class="post-avatar" id="createPostAvatar">U</div>
+                            <textarea class="post-input" id="newPostContent" placeholder="Quoi de neuf, " rows="3"></textarea>
+                        </div>
+                        <div class="post-actions-bar">
+                            <button class="post-action-btn" onclick="createPost()">
+                                <span style="font-size: 1.2rem;">✍️</span>
+                                <span>Publier</span>
+                            </button>
+                            <button class="post-action-btn">
+                                <span style="font-size: 1.2rem;">📷</span>
+                                <span>Photo</span>
+                            </button>
+                            <button class="post-action-btn">
+                                <span style="font-size: 1.2rem;">📄</span>
+                                <span>Document</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Posts Container -->
+                    <div id="postsContainer">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+
+                <!-- Documents Section -->
+                <div id="documentsSection" class="documents-section hidden">
+                    <div class="upload-box">
+                        <h3 style="margin-bottom: 1.5rem;">📤 Ajouter un document</h3>
+                        <div class="form-group">
+                            <label>Titre du document</label>
+                            <input type="text" id="docTitle" placeholder="Ex: Cours de Mathématiques L1">
+                        </div>
+                        <div class="form-group">
+                            <label>UFR</label>
+                            <select id="docUFR">
+                                <option value="">Sélectionner UFR</option>
+                                <option value="SAT">Sciences Appliquées et Technologie</option>
+                                <option value="LSH">Lettres et Sciences Humaines</option>
+                                <option value="SEG">Sciences Économiques et Gestion</option>
+                                <option value="SJP">Sciences Juridiques et Politiques</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Fichier</label>
+                            <input type="file" id="docFile">
+                        </div>
+                        <button class="btn btn-primary" onclick="uploadDocument()">Télécharger le document</button>
+                    </div>
+                    <h3 style="margin-bottom: 1rem;">📚 Bibliothèque</h3>
+                    <div id="documentsContainer" class="documents-grid">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+
+                <!-- Events Section -->
+                <div id="eventsSection" class="documents-section hidden">
+                    <div class="upload-box">
+                        <h3 style="margin-bottom: 1.5rem;">➕ Créer un événement</h3>
+                        <div class="form-group">
+                            <label>Titre</label>
+                            <input type="text" id="eventTitle" placeholder="Ex: Match de football">
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea id="eventDesc" rows="3" placeholder="Détails de l'événement"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Date</label>
+                            <input type="datetime-local" id="eventDate">
+                        </div>
+                        <div class="form-group">
+                            <label>Lieu</label>
+                            <input type="text" id="eventLocation" placeholder="Ex: Terrain de sport UGB">
+                        </div>
+                        <button class="btn btn-primary" onclick="createEvent()">Créer l'événement</button>
+                    </div>
+                    <h3 style="margin-bottom: 1rem;">📅 Événements à venir</h3>
+                    <div id="eventsContainer">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+
+                <!-- Mentorship Section -->
+                <div id="mentorshipSection" class="documents-section hidden">
+                    <div class="upload-box">
+                        <h3 style="margin-bottom: 1rem;">🤝 Mon Mentorat</h3>
+                        <p style="margin-bottom: 1.5rem;">Le programme de jumelage AEESS connecte les anciens avec les nouveaux étudiants pour un accompagnement personnalisé.</p>
+                        <div id="mentorshipInfo"></div>
+                    </div>
+                </div>
+
+                <!-- Profile Section -->
+                <div id="profileSection" class="profile-section hidden">
+                    <div class="profile-header">
+                        <div class="profile-avatar-large" id="profileAvatarLarge">U</div>
+                        <div class="profile-name" id="profileName">Utilisateur</div>
+                        <p id="profileStatus" style="color: #65676b;"></p>
+                    </div>
+                    <div class="profile-info-grid">
+                        <h3 style="margin-bottom: 1.5rem;">Informations personnelles</h3>
+                        <div id="profileInfo"></div>
+                        <button class="btn btn-secondary" onclick="editProfile()" style="margin-top: 1.5rem;">Modifier le profil</button>
+                    </div>
                 </div>
             </div>
-        </section>
+
+            <!-- Right Sidebar -->
+            <div class="right-sidebar">
+                <!-- Contacts -->
+                <div class="contacts-box">
+                    <div class="sidebar-title">Contacts</div>
+                    <div id="contactsList">
+                        <div class="contact-item">
+                            <div class="contact-avatar">
+                                A
+                                <div class="online-dot"></div>
+                            </div>
+                            <div class="contact-name">Membres en ligne</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upcoming Events -->
+                <div class="events-box">
+                    <div class="sidebar-title">Événements à venir</div>
+                    <div id="upcomingEvents">
+                        <p style="color: #65676b; font-size: 0.9rem;">Aucun événement programmé</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Login Modal -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
-            <h2>Connexion</h2>
+            <h2 style="margin-bottom: 1.5rem;">Connexion</h2>
             <form id="loginForm" onsubmit="login(event)">
                 <div class="form-group">
                     <label>Email</label>
-                    <input type="email" id="loginEmail" required>
+                    <input type="email" id="loginEmail" required placeholder="votre@email.com">
                 </div>
                 <div class="form-group">
                     <label>Mot de passe</label>
-                    <input type="password" id="loginPassword" required>
+                    <input type="password" id="loginPassword" required placeholder="••••••••">
                 </div>
                 <button type="submit" class="btn btn-primary" style="width: 100%;">Se connecter</button>
-                <p style="text-align: center; margin-top: 1rem;">
-                    Pas encore membre ? <a href="#" onclick="showRegister()">S'inscrire</a>
+                <p style="text-align: center; margin-top: 1.5rem;">
+                    Pas encore membre ? <a href="#" onclick="showRegister()" style="color: var(--primary-green); font-weight: 600;">S'inscrire</a>
                 </p>
                 <button type="button" class="btn btn-secondary" onclick="closeModal()" style="width: 100%; margin-top: 1rem;">Annuler</button>
             </form>
@@ -715,23 +1240,23 @@
     <!-- Register Modal -->
     <div id="registerModal" class="modal">
         <div class="modal-content">
-            <h2>Inscription</h2>
+            <h2 style="margin-bottom: 1.5rem;">Inscription</h2>
             <form id="registerForm" onsubmit="register(event)">
                 <div class="form-group">
                     <label>Nom complet</label>
-                    <input type="text" id="registerName" required>
+                    <input type="text" id="registerName" required placeholder="Prénom Nom">
                 </div>
                 <div class="form-group">
                     <label>Email</label>
-                    <input type="email" id="registerEmail" required>
+                    <input type="email" id="registerEmail" required placeholder="votre@email.com">
                 </div>
                 <div class="form-group">
                     <label>Mot de passe</label>
-                    <input type="password" id="registerPassword" required minlength="6">
+                    <input type="password" id="registerPassword" required minlength="6" placeholder="Min. 6 caractères">
                 </div>
                 <div class="form-group">
                     <label>Téléphone</label>
-                    <input type="tel" id="registerPhone" required>
+                    <input type="tel" id="registerPhone" required placeholder="77 123 45 67">
                 </div>
                 <div class="form-group">
                     <label>UFR</label>
@@ -763,8 +1288,8 @@
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary" style="width: 100%;">S'inscrire</button>
-                <p style="text-align: center; margin-top: 1rem;">
-                    Déjà membre ? <a href="#" onclick="showLogin()">Se connecter</a>
+                <p style="text-align: center; margin-top: 1.5rem;">
+                    Déjà membre ? <a href="#" onclick="showLogin()" style="color: var(--primary-green); font-weight: 600;">Se connecter</a>
                 </p>
                 <button type="button" class="btn btn-secondary" onclick="closeModal()" style="width: 100%; margin-top: 1rem;">Annuler</button>
             </form>
@@ -793,8 +1318,9 @@
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
         let currentUser = null;
+        let currentCommentPost = null;
 
-        // Check if user is logged in
+        // Check auth on load
         async function checkAuth() {
             const { data: { session } } = await supabase.auth.getSession();
             if (session) {
@@ -884,10 +1410,14 @@
             document.getElementById('publicContent').style.display = 'none';
             document.getElementById('memberDashboard').classList.add('active');
             document.getElementById('loginBtn').classList.add('hidden');
-            document.getElementById('logoutBtn').classList.remove('hidden');
+            document.getElementById('userMenu').classList.remove('hidden');
+            
+            const initial = currentUser.user_metadata.full_name ? currentUser.user_metadata.full_name.charAt(0).toUpperCase() : 'U';
+            document.getElementById('userAvatar').textContent = initial;
+            document.getElementById('createPostAvatar').textContent = initial;
+            
             loadPosts();
-            loadDocuments();
-            loadProfile();
+            loadUpcomingEvents();
         }
 
         // Show Public Content
@@ -895,44 +1425,61 @@
             document.getElementById('publicContent').style.display = 'block';
             document.getElementById('memberDashboard').classList.remove('active');
             document.getElementById('loginBtn').classList.remove('hidden');
-            document.getElementById('logoutBtn').classList.add('hidden');
+            document.getElementById('userMenu').classList.add('hidden');
         }
 
         // Dashboard Navigation
         function showDashboardSection(section) {
+            // Update menu items
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.closest('.menu-item').classList.add('active');
+
+            // Hide all sections
             document.getElementById('feedSection').classList.add('hidden');
             document.getElementById('documentsSection').classList.add('hidden');
+            document.getElementById('eventsSection').classList.add('hidden');
+            document.getElementById('mentorshipSection').classList.add('hidden');
             document.getElementById('profileSection').classList.add('hidden');
 
+            // Show selected section
             if (section === 'feed') {
                 document.getElementById('feedSection').classList.remove('hidden');
+                loadPosts();
             } else if (section === 'documents') {
                 document.getElementById('documentsSection').classList.remove('hidden');
+                loadDocuments();
+            } else if (section === 'events') {
+                document.getElementById('eventsSection').classList.remove('hidden');
+                loadEvents();
+            } else if (section === 'mentorship') {
+                document.getElementById('mentorshipSection').classList.remove('hidden');
+                loadMentorship();
             } else if (section === 'profile') {
                 document.getElementById('profileSection').classList.remove('hidden');
+                loadProfile();
             }
         }
 
         // Create Post
         async function createPost() {
-            const content = document.getElementById('newPostContent').value;
-            if (!content.trim()) {
+            const content = document.getElementById('newPostContent').value.trim();
+            if (!content) {
                 alert('Veuillez entrer du contenu');
                 return;
             }
 
-            const { data, error } = await supabase
+            const { error } = await supabase
                 .from('posts')
-                .insert([
-                    {
-                        user_id: currentUser.id,
-                        content: content,
-                        author_name: currentUser.user_metadata.full_name
-                    }
-                ]);
+                .insert([{
+                    user_id: currentUser.id,
+                    content: content,
+                    author_name: currentUser.user_metadata.full_name
+                }]);
 
             if (error) {
-                alert('Erreur lors de la publication: ' + error.message);
+                alert('Erreur: ' + error.message);
             } else {
                 document.getElementById('newPostContent').value = '';
                 loadPosts();
@@ -948,38 +1495,165 @@
 
             const container = document.getElementById('postsContainer');
             
-            if (error) {
-                container.innerHTML = '<p>Erreur de chargement des posts</p>';
+            if (error || !data || data.length === 0) {
+                container.innerHTML = '<div style="text-align: center; padding: 3rem; color: #65676b;"><p>Aucune publication pour le moment.</p><p style="margin-top: 0.5rem; font-size: 0.9rem;">Soyez le premier à publier!</p></div>';
                 return;
             }
 
-            if (!data || data.length === 0) {
-                container.innerHTML = '<p style="text-align: center; color: #666;">Aucune publication pour le moment. Soyez le premier à publier!</p>';
-                return;
+            container.innerHTML = '';
+            for (const post of data) {
+                const postCard = await createPostCard(post);
+                container.appendChild(postCard);
             }
-
-            container.innerHTML = data.map(post => `
-                <div class="post-card">
-                    <div class="post-header">
-                        <div class="post-avatar">${post.author_name ? post.author_name.charAt(0).toUpperCase() : 'U'}</div>
-                        <div>
-                            <strong>${post.author_name || 'Utilisateur'}</strong>
-                            <div style="font-size: 0.8rem; color: #666;">${new Date(post.created_at).toLocaleDateString('fr-FR')}</div>
-                        </div>
-                    </div>
-                    <div>${post.content}</div>
-                    <div class="post-actions">
-                        <button onclick="likePost('${post.id}')">👍 J'aime</button>
-                        <button>💬 Commenter</button>
-                    </div>
-                </div>
-            `).join('');
         }
 
-        // Like Post
-        async function likePost(postId) {
-            // Simple like - you can expand this with a likes table
-            alert('Fonctionnalité à venir!');
+        // Create Post Card
+        async function createPostCard(post) {
+            const card = document.createElement('div');
+            card.className = 'post-card';
+            
+            const initial = post.author_name ? post.author_name.charAt(0).toUpperCase() : 'U';
+            const timeAgo = getTimeAgo(new Date(post.created_at));
+            
+            // Get comments
+            const { data: comments } = await supabase
+                .from('comments')
+                .select('*')
+                .eq('post_id', post.id)
+                .order('created_at', { ascending: true});
+            
+            const commentsCount = comments ? comments.length : 0;
+            
+            card.innerHTML = `
+                <div class="post-header">
+                    <div class="post-avatar">${initial}</div>
+                    <div class="post-author-info">
+                        <div class="post-author-name">${post.author_name || 'Utilisateur'}</div>
+                        <div class="post-time">${timeAgo}</div>
+                    </div>
+                </div>
+                <div class="post-content">${post.content}</div>
+                <div class="post-stats">
+                    <span>${post.likes_count || 0} J'aime</span>
+                    <span>${commentsCount} commentaire${commentsCount !== 1 ? 's' : ''}</span>
+                </div>
+                <div class="post-actions">
+                    <button class="post-action" onclick="toggleLike('${post.id}')">
+                        <span>👍</span> J'aime
+                    </button>
+                    <button class="post-action" onclick="toggleComments('${post.id}')">
+                        <span>💬</span> Commenter
+                    </button>
+                    <button class="post-action">
+                        <span>🔗</span> Partager
+                    </button>
+                </div>
+                <div class="comments-section hidden" id="comments-${post.id}">
+                    <div id="comments-list-${post.id}"></div>
+                    <div class="comment-input-area">
+                        <div class="comment-avatar">${currentUser.user_metadata.full_name ? currentUser.user_metadata.full_name.charAt(0).toUpperCase() : 'U'}</div>
+                        <input type="text" class="comment-input" id="comment-input-${post.id}" placeholder="Écrivez un commentaire...">
+                        <button class="btn btn-primary" onclick="addComment('${post.id'}" style="padding: 0.5rem 1rem;">✉️</button>
+                    </div>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        // Toggle Comments
+        async function toggleComments(postId) {
+            const commentsSection = document.getElementById(`comments-${postId}`);
+            if (commentsSection.classList.contains('hidden')) {
+                commentsSection.classList.remove('hidden');
+                await loadComments(postId);
+            } else {
+                commentsSection.classList.add('hidden');
+            }
+        }
+
+        // Load Comments
+        async function loadComments(postId) {
+            const { data, error } = await supabase
+                .from('comments')
+                .select('*')
+                .eq('post_id', postId)
+                .order('created_at', { ascending: true });
+            
+            const container = document.getElementById(`comments-list-${postId}`);
+            if (!data || data.length === 0) {
+                container.innerHTML = '';
+                return;
+            }
+            
+            container.innerHTML = data.map(comment => {
+                const initial = comment.author_name ? comment.author_name.charAt(0).toUpperCase() : 'U';
+                const timeAgo = getTimeAgo(new Date(comment.created_at));
+                return `
+                    <div class="comment-item">
+                        <div class="comment-avatar">${initial}</div>
+                        <div class="comment-content">
+                            <div class="comment-bubble">
+                                <div class="comment-author">${comment.author_name || 'Utilisateur'}</div>
+                                <div class="comment-text">${comment.content}</div>
+                            </div>
+                            <div class="comment-time">${timeAgo}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Add Comment
+        async function addComment(postId) {
+            const input = document.getElementById(`comment-input-${postId}`);
+            const content = input.value.trim();
+            
+            if (!content) return;
+            
+            const { error } = await supabase
+                .from('comments')
+                .insert([{
+                    post_id: postId,
+                    user_id: currentUser.id,
+                    author_name: currentUser.user_metadata.full_name,
+                    content: content
+                }]);
+            
+            if (!error) {
+                input.value = '';
+                await loadComments(postId);
+            }
+        }
+
+        // Toggle Like
+        async function toggleLike(postId) {
+            // Check if already liked
+            const { data: existing } = await supabase
+                .from('likes')
+                .select('*')
+                .eq('post_id', postId)
+                .eq('user_id', currentUser.id)
+                .single();
+            
+            if (existing) {
+                // Unlike
+                await supabase
+                    .from('likes')
+                    .delete()
+                    .eq('post_id', postId)
+                    .eq('user_id', currentUser.id);
+            } else {
+                // Like
+                await supabase
+                    .from('likes')
+                    .insert([{
+                        post_id: postId,
+                        user_id: currentUser.id
+                    }]);
+            }
+            
+            loadPosts();
         }
 
         // Upload Document
@@ -994,37 +1668,32 @@
                 return;
             }
 
-            // Upload file to Supabase Storage
             const fileName = `${Date.now()}_${file.name}`;
-            const { data: uploadData, error: uploadError } = await supabase.storage
+            const { error: uploadError } = await supabase.storage
                 .from('documents')
                 .upload(fileName, file);
 
             if (uploadError) {
-                alert('Erreur de téléchargement: ' + uploadError.message);
+                alert('Erreur: ' + uploadError.message);
                 return;
             }
 
-            // Get public URL
             const { data: urlData } = supabase.storage
                 .from('documents')
                 .getPublicUrl(fileName);
 
-            // Save document info to database
             const { error } = await supabase
                 .from('documents')
-                .insert([
-                    {
-                        title: title,
-                        ufr: ufr,
-                        file_url: urlData.publicUrl,
-                        uploaded_by: currentUser.id,
-                        uploader_name: currentUser.user_metadata.full_name
-                    }
-                ]);
+                .insert([{
+                    title: title,
+                    ufr: ufr,
+                    file_url: urlData.publicUrl,
+                    uploaded_by: currentUser.id,
+                    uploader_name: currentUser.user_metadata.full_name
+                }]);
 
             if (error) {
-                alert('Erreur lors de l\'enregistrement: ' + error.message);
+                alert('Erreur: ' + error.message);
             } else {
                 document.getElementById('docTitle').value = '';
                 document.getElementById('docUFR').value = '';
@@ -1042,13 +1711,8 @@
 
             const container = document.getElementById('documentsContainer');
             
-            if (error) {
-                container.innerHTML = '<p>Erreur de chargement des documents</p>';
-                return;
-            }
-
-            if (!data || data.length === 0) {
-                container.innerHTML = '<p style="text-align: center; color: #666; grid-column: 1/-1;">Aucun document disponible.</p>';
+            if (error || !data || data.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #65676b; grid-column: 1/-1;">Aucun document disponible.</p>';
                 return;
             }
 
@@ -1062,35 +1726,180 @@
             `).join('');
         }
 
+        // Create Event
+        async function createEvent() {
+            const title = document.getElementById('eventTitle').value;
+            const desc = document.getElementById('eventDesc').value;
+            const date = document.getElementById('eventDate').value;
+            const location = document.getElementById('eventLocation').value;
+
+            if (!title || !date) {
+                alert('Veuillez remplir au minimum le titre et la date');
+                return;
+            }
+
+            const { error } = await supabase
+                .from('events')
+                .insert([{
+                    title: title,
+                    description: desc,
+                    event_date: date,
+                    location: location,
+                    created_by: currentUser.id
+                }]);
+
+            if (error) {
+                alert('Erreur: ' + error.message);
+            } else {
+                document.getElementById('eventTitle').value = '';
+                document.getElementById('eventDesc').value = '';
+                document.getElementById('eventDate').value = '';
+                document.getElementById('eventLocation').value = '';
+                loadEvents();
+            }
+        }
+
+        // Load Events
+        async function loadEvents() {
+            const { data, error } = await supabase
+                .from('events')
+                .select('*')
+                .order('event_date', { ascending: true });
+
+            const container = document.getElementById('eventsContainer');
+            
+            if (error || !data || data.length === 0) {
+                container.innerHTML = '<div class="action-card"><p style="text-align: center; color: #65676b;">Aucun événement programmé.</p></div>';
+                return;
+            }
+
+            container.innerHTML = data.map(event => {
+                const eventDate = new Date(event.event_date);
+                return `
+                    <div class="action-card">
+                        <h3>${event.title}</h3>
+                        <p><strong>📅 Date :</strong> ${eventDate.toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+                        ${event.location ? `<p><strong>📍 Lieu :</strong> ${event.location}</p>` : ''}
+                        ${event.description ? `<p style="margin-top: 1rem;">${event.description}</p>` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Load Upcoming Events (Sidebar)
+        async function loadUpcomingEvents() {
+            const { data } = await supabase
+                .from('events')
+                .select('*')
+                .gte('event_date', new Date().toISOString())
+                .order('event_date', { ascending: true })
+                .limit(3);
+
+            const container = document.getElementById('upcomingEvents');
+            
+            if (!data || data.length === 0) {
+                container.innerHTML = '<p style="color: #65676b; font-size: 0.9rem;">Aucun événement programmé</p>';
+                return;
+            }
+
+            container.innerHTML = data.map(event => {
+                const eventDate = new Date(event.event_date);
+                return `
+                    <div class="event-item">
+                        <div class="event-date">${eventDate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })}</div>
+                        <div class="event-title">${event.title}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Load Mentorship
+        async function loadMentorship() {
+            const container = document.getElementById('mentorshipInfo');
+            const userStatus = currentUser.user_metadata.status;
+
+            if (userStatus === 'nouveau') {
+                // Check if has mentor
+                const { data } = await supabase
+                    .from('mentorship')
+                    .select('*, mentor:profiles!mentorship_mentor_id_fkey(full_name, phone, ufr)')
+                    .eq('mentee_id', currentUser.id)
+                    .eq('status', 'active')
+                    .single();
+
+                if (data && data.mentor) {
+                    container.innerHTML = `
+                        <div class="action-card">
+                            <h4>👨‍🏫 Votre Mentor</h4>
+                            <p style="margin-top: 1rem;"><strong>Nom :</strong> ${data.mentor.full_name || 'N/A'}</p>
+                            <p><strong>UFR :</strong> ${data.mentor.ufr || 'N/A'}</p>
+                            <p><strong>Téléphone :</strong> ${data.mentor.phone || 'N/A'}</p>
+                            <p style="margin-top: 1rem; color: #65676b;">Votre mentor est là pour vous accompagner dans vos cours, TD, TP et préparation d'examens.</p>
+                        </div>
+                    `;
+                } else {
+                    container.innerHTML = `
+                        <div class="action-card">
+                            <p style="color: #65676b;">Vous n'avez pas encore de mentor assigné. Contactez l'administration de l'AEESS pour être jumelé avec un ancien.</p>
+                        </div>
+                    `;
+                }
+            } else {
+                // Check if mentoring someone
+                const { data } = await supabase
+                    .from('mentorship')
+                    .select('*, mentee:profiles!mentorship_mentee_id_fkey(full_name, phone, ufr, year)')
+                    .eq('mentor_id', currentUser.id)
+                    .eq('status', 'active');
+
+                if (data && data.length > 0) {
+                    container.innerHTML = `
+                        <h4>👥 Vos Filleuls</h4>
+                        ${data.map(m => `
+                            <div class="action-card" style="margin-top: 1rem;">
+                                <p><strong>Nom :</strong> ${m.mentee.full_name || 'N/A'}</p>
+                                <p><strong>UFR :</strong> ${m.mentee.ufr || 'N/A'}</p>
+                                <p><strong>Année :</strong> ${m.mentee.year || 'N/A'}</p>
+                                <p><strong>Téléphone :</strong> ${m.mentee.phone || 'N/A'}</p>
+                            </div>
+                        `).join('')}
+                    `;
+                } else {
+                    container.innerHTML = `
+                        <div class="action-card">
+                            <p style="color: #65676b;">Vous n'êtes pas encore mentor. Proposez-vous pour accompagner un nouveau bachelier!</p>
+                        </div>
+                    `;
+                }
+            }
+        }
+
         // Load Profile
         async function loadProfile() {
-            const container = document.getElementById('profileInfo');
             const user = currentUser;
+            const initial = user.user_metadata.full_name ? user.user_metadata.full_name.charAt(0).toUpperCase() : 'U';
             
+            document.getElementById('profileAvatarLarge').textContent = initial;
+            document.getElementById('profileName').textContent = user.user_metadata.full_name || 'Utilisateur';
+            document.getElementById('profileStatus').textContent = user.user_metadata.status === 'nouveau' ? 'Nouveau bachelier' : 'Ancien étudiant';
+            
+            const container = document.getElementById('profileInfo');
             container.innerHTML = `
                 <div class="form-group">
-                    <label>Nom complet</label>
-                    <p><strong>${user.user_metadata.full_name || 'Non renseigné'}</strong></p>
-                </div>
-                <div class="form-group">
                     <label>Email</label>
-                    <p><strong>${user.email}</strong></p>
+                    <p style="padding: 0.75rem; background: var(--bg-light); border-radius: 8px;"><strong>${user.email}</strong></p>
                 </div>
                 <div class="form-group">
                     <label>Téléphone</label>
-                    <p><strong>${user.user_metadata.phone || 'Non renseigné'}</strong></p>
+                    <p style="padding: 0.75rem; background: var(--bg-light); border-radius: 8px;"><strong>${user.user_metadata.phone || 'Non renseigné'}</strong></p>
                 </div>
                 <div class="form-group">
                     <label>UFR</label>
-                    <p><strong>${user.user_metadata.ufr || 'Non renseigné'}</strong></p>
+                    <p style="padding: 0.75rem; background: var(--bg-light); border-radius: 8px;"><strong>${user.user_metadata.ufr || 'Non renseigné'}</strong></p>
                 </div>
                 <div class="form-group">
                     <label>Année d'études</label>
-                    <p><strong>${user.user_metadata.year || 'Non renseigné'}</strong></p>
-                </div>
-                <div class="form-group">
-                    <label>Statut</label>
-                    <p><strong>${user.user_metadata.status === 'nouveau' ? 'Nouveau bachelier' : 'Ancien étudiant'}</strong></p>
+                    <p style="padding: 0.75rem; background: var(--bg-light); border-radius: 8px;"><strong>${user.user_metadata.year || 'Non renseigné'}</strong></p>
                 </div>
             `;
         }
@@ -1098,6 +1907,28 @@
         // Edit Profile
         function editProfile() {
             alert('Fonctionnalité de modification du profil à venir!');
+        }
+
+        // Utility: Get Time Ago
+        function getTimeAgo(date) {
+            const seconds = Math.floor((new Date() - date) / 1000);
+            
+            let interval = seconds / 31536000;
+            if (interval > 1) return Math.floor(interval) + " ans";
+            
+            interval = seconds / 2592000;
+            if (interval > 1) return Math.floor(interval) + " mois";
+            
+            interval = seconds / 86400;
+            if (interval > 1) return Math.floor(interval) + " j";
+            
+            interval = seconds / 3600;
+            if (interval > 1) return Math.floor(interval) + " h";
+            
+            interval = seconds / 60;
+            if (interval > 1) return Math.floor(interval) + " min";
+            
+            return "À l'instant";
         }
 
         // Initialize app
@@ -1109,6 +1940,14 @@
                 closeModal();
             }
         }
+
+        // Handle Enter key in comment inputs
+        document.addEventListener('keypress', function(e) {
+            if (e.target.classList.contains('comment-input') && e.key === 'Enter') {
+                const postId = e.target.id.replace('comment-input-', '');
+                addComment(postId);
+            }
+        });
     </script>
 </body>
 </html>
