@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AEESS - Association des Élèves et Étudiants Soninké à Saint-Louis</title>
+    <title>AEESS - Réseau Étudiant</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         * {
@@ -33,7 +33,6 @@
         /* Navigation */
         nav {
             background: var(--white);
-            color: var(--text-dark);
             padding: 0.5rem 1rem;
             position: sticky;
             top: 0;
@@ -59,12 +58,6 @@
             color: var(--primary-green);
         }
 
-        .logo img {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-        }
-
         .nav-links {
             display: flex;
             gap: 1rem;
@@ -81,25 +74,6 @@
 
         .nav-links a:hover {
             background: var(--hover-bg);
-        }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--primary-green);
-            color: var(--white);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            cursor: pointer;
         }
 
         .btn {
@@ -146,14 +120,6 @@
             margin-bottom: 1rem;
         }
 
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
         .hero-stats {
             display: flex;
             justify-content: center;
@@ -162,29 +128,16 @@
             flex-wrap: wrap;
         }
 
-        .stat {
-            text-align: center;
-        }
-
         .stat-number {
             font-size: 2.5rem;
             font-weight: bold;
         }
 
-        .stat-label {
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-
-        /* Sections */
+        /* Sections publiques */
         section {
             padding: 4rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
-        }
-
-        section:nth-child(even) {
-            background: var(--white);
         }
 
         h2 {
@@ -194,7 +147,6 @@
             text-align: center;
         }
 
-        /* Actions Grid */
         .actions-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -207,40 +159,15 @@
             padding: 2rem;
             border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            transition: transform 0.2s, box-shadow 0.2s;
             border: 1px solid var(--border);
         }
 
-        .action-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-
-        .action-card h3 {
-            color: var(--primary-green);
-            margin-bottom: 1rem;
-        }
-
-        /* Crisis Section */
         .crisis-alert {
             background: #fff3cd;
             border-left: 5px solid #ffc107;
             padding: 2rem;
             margin: 2rem 0;
             border-radius: 8px;
-        }
-
-        .crisis-alert h3 {
-            color: #856404;
-            margin-bottom: 1rem;
-        }
-
-        /* Donation Section */
-        .donation-methods {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
         }
 
         .payment-card {
@@ -252,11 +179,6 @@
             border: 1px solid var(--border);
         }
 
-        .payment-card h3 {
-            color: var(--primary-green);
-            margin-bottom: 1rem;
-        }
-
         .payment-number {
             font-size: 1.5rem;
             font-weight: bold;
@@ -264,225 +186,145 @@
             margin: 1rem 0;
         }
 
-        /* Impact Calculator */
-        .impact-examples {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .impact-item {
-            background: var(--light-green);
-            color: var(--white);
-            padding: 1.5rem;
-            border-radius: 12px;
-            text-align: center;
-        }
-
-        .impact-amount {
-            font-size: 1.8rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.6);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: var(--white);
-            padding: 2rem;
-            border-radius: 12px;
-            max-width: 450px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-        }
-
-        .form-group {
-            margin-bottom: 1.2rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text-dark);
-            font-weight: 500;
-            font-size: 0.95rem;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            font-size: 1rem;
-            font-family: inherit;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary-green);
-        }
-
-        /* ===== MEMBER DASHBOARD - FACEBOOK STYLE ===== */
-        .dashboard {
+        /* Espace Réseau Social */
+        .social-dashboard {
             display: none;
             background: var(--bg-light);
+            min-height: 100vh;
         }
 
-        .dashboard.active {
+        .social-dashboard.active {
             display: block;
         }
 
-        .dashboard-container {
+        .social-header {
+            background: var(--white);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .social-nav {
             max-width: 1400px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: 280px 1fr 300px;
-            gap: 1.5rem;
-            padding: 1.5rem;
-            min-height: calc(100vh - 70px);
-        }
-
-        /* Left Sidebar */
-        .left-sidebar {
-            position: sticky;
-            top: 70px;
-            height: fit-content;
-        }
-
-        .sidebar-menu {
-            background: var(--white);
-            border-radius: 12px;
-            padding: 1rem;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-        }
-
-        .menu-item {
             display: flex;
+            justify-content: space-between;
             align-items: center;
             gap: 1rem;
-            padding: 0.75rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.2s;
-            font-weight: 500;
-            color: var(--text-dark);
         }
 
-        .menu-item:hover {
-            background: var(--hover-bg);
-        }
-
-        .menu-item.active {
-            background: var(--primary-green);
-            color: var(--white);
-        }
-
-        .menu-icon {
+        .social-logo {
             font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-green);
         }
 
-        /* Main Feed */
-        .main-feed {
-            max-width: 680px;
+        .social-search {
+            flex: 1;
+            max-width: 400px;
         }
 
-        .create-post-box {
+        .social-search input {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .social-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .social-main {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: 280px 1fr 320px;
+            gap: 2rem;
+        }
+
+        /* Sidebar gauche */
+        .sidebar-left {
             background: var(--white);
             border-radius: 12px;
             padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            height: fit-content;
+            position: sticky;
+            top: 90px;
         }
 
-        .post-input-area {
-            display: flex;
-            gap: 1rem;
+        .user-profile-card {
+            text-align: center;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
             margin-bottom: 1rem;
         }
 
-        .post-input {
-            flex: 1;
-            padding: 0.75rem 1rem;
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            background: var(--bg-light);
-            font-size: 1rem;
-            resize: none;
-            font-family: inherit;
-        }
-
-        .post-input:focus {
-            outline: none;
-            background: var(--white);
-        }
-
-        .post-actions-bar {
-            display: flex;
-            gap: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border);
-        }
-
-        .post-action-btn {
-            flex: 1;
+        .user-avatar-big {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--primary-green);
+            color: var(--white);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
-            padding: 0.75rem;
-            background: none;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 500;
-            color: #65676b;
-            transition: background 0.2s;
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
         }
 
-        .post-action-btn:hover {
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem;
+            color: var(--text-dark);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+
+        .sidebar-menu a:hover {
             background: var(--hover-bg);
         }
 
-        /* Post Card - Facebook Style */
-        .post-card {
-            background: var(--white);
-            border-radius: 12px;
-            padding: 0;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-        }
-
-        .post-header {
+        /* Feed central */
+        .news-feed {
             display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 1rem 1.5rem;
+            flex-direction: column;
+            gap: 1.5rem;
         }
 
-        .post-avatar {
+        .create-post-card {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .post-input-container {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .post-avatar-small {
             width: 40px;
             height: 40px;
             border-radius: 50%;
@@ -492,19 +334,74 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 1rem;
+            flex-shrink: 0;
         }
 
-        .post-author-info {
+        .post-input {
+            flex: 1;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            cursor: pointer;
+            background: var(--bg-light);
+            color: #65676b;
+        }
+
+        .post-input:hover {
+            background: #e9ecef;
+        }
+
+        .post-actions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            border-top: 1px solid var(--border);
+            padding-top: 1rem;
+        }
+
+        .post-action-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.7rem;
+            border: none;
+            background: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+
+        .post-action-btn:hover {
+            background: var(--bg-light);
+        }
+
+        /* Post Card */
+        .post-card {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem 1.5rem 1rem;
+        }
+
+        .post-user-info {
             flex: 1;
         }
 
-        .post-author-name {
-            font-weight: 600;
-            color: var(--text-dark);
+        .post-user-info h4 {
+            margin-bottom: 0.2rem;
         }
 
-        .post-time {
+        .post-meta {
             font-size: 0.85rem;
             color: #65676b;
         }
@@ -512,77 +409,103 @@
         .post-content {
             padding: 0 1.5rem 1rem;
             font-size: 1rem;
-            line-height: 1.5;
+            line-height: 1.6;
+        }
+
+        .post-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
         }
 
         .post-stats {
             display: flex;
             justify-content: space-between;
-            padding: 0 1.5rem;
-            margin-bottom: 0.5rem;
-            color: #65676b;
-            font-size: 0.9rem;
-        }
-
-        .post-actions {
-            display: flex;
+            padding: 0.8rem 1.5rem;
             border-top: 1px solid var(--border);
-            padding: 0.5rem 0;
+            font-size: 0.9rem;
+            color: #65676b;
         }
 
-        .post-action {
-            flex: 1;
+        .post-actions-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border-top: 1px solid var(--border);
+        }
+
+        .post-action-button {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
-            padding: 0.75rem;
-            background: none;
+            padding: 0.8rem;
             border: none;
+            background: none;
             cursor: pointer;
-            color: #65676b;
-            font-weight: 600;
-            border-radius: 8px;
             transition: background 0.2s;
-            font-size: 0.95rem;
+            color: var(--text-dark);
+            font-weight: 600;
         }
 
-        .post-action:hover {
-            background: var(--hover-bg);
+        .post-action-button:hover {
+            background: var(--bg-light);
         }
 
-        .post-action.liked {
+        .post-action-button.liked {
             color: var(--primary-green);
         }
 
-        /* Comments Section */
+        /* Comments */
         .comments-section {
-            padding: 0 1.5rem 1rem;
+            padding: 1rem 1.5rem;
             border-top: 1px solid var(--border);
         }
 
-        .comment-item {
+        .comment-input-container {
             display: flex;
             gap: 0.75rem;
-            margin-top: 0.75rem;
+            margin-bottom: 1rem;
+            align-items: center;
         }
 
         .comment-avatar {
             width: 32px;
             height: 32px;
             border-radius: 50%;
-            background: var(--primary-green);
+            background: var(--light-green);
             color: var(--white);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
             font-size: 0.85rem;
+            font-weight: bold;
             flex-shrink: 0;
         }
 
-        .comment-content {
+        .comment-input {
             flex: 1;
+            padding: 0.65rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            background: var(--bg-light);
+            font-size: 0.9rem;
+            font-family: inherit;
+        }
+
+        .comment-input:focus {
+            outline: none;
+            background: var(--white);
+        }
+
+        .comment-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .comment-item {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 0.75rem;
         }
 
         .comment-bubble {
@@ -609,225 +532,222 @@
             padding-left: 1rem;
         }
 
-        .comment-input-area {
-            display: flex;
-            gap: 0.75rem;
-            margin-top: 1rem;
-            align-items: center;
-        }
-
-        .comment-input {
-            flex: 1;
-            padding: 0.65rem 1rem;
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            background: var(--bg-light);
-            font-size: 0.9rem;
-            font-family: inherit;
-        }
-
-        .comment-input:focus {
-            outline: none;
-            background: var(--white);
-        }
-
-        /* Right Sidebar */
-        .right-sidebar {
-            position: sticky;
-            top: 70px;
+        /* Sidebar droite */
+        .sidebar-right {
             height: fit-content;
+            position: sticky;
+            top: 90px;
         }
 
-        .contacts-box, .events-box {
+        .sidebar-section {
             background: var(--white);
             border-radius: 12px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem;
         }
 
         .sidebar-title {
             font-weight: 600;
             font-size: 1.05rem;
-            color: #65676b;
             margin-bottom: 1rem;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.5rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .contact-item:hover {
-            background: var(--hover-bg);
-        }
-
-        .contact-avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: var(--primary-green);
-            color: var(--white);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            position: relative;
-        }
-
-        .online-dot {
-            width: 10px;
-            height: 10px;
-            background: #31a24c;
-            border: 2px solid var(--white);
-            border-radius: 50%;
-            position: absolute;
-            bottom: 0;
-            right: 0;
-        }
-
-        .contact-name {
-            font-size: 0.95rem;
-            font-weight: 500;
+            color: var(--text-dark);
         }
 
         .event-item {
-            padding: 0.75rem;
-            border-radius: 8px;
-            background: var(--bg-light);
-            margin-bottom: 0.75rem;
+            display: flex;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .event-item:last-child {
+            border-bottom: none;
         }
 
         .event-date {
-            font-size: 0.85rem;
-            color: var(--primary-green);
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-
-        .event-title {
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
-
-        /* Documents Section */
-        .documents-section {
-            padding: 2rem;
-        }
-
-        .upload-box {
-            background: var(--white);
-            border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-        }
-
-        .documents-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-
-        .document-card {
-            background: var(--white);
-            padding: 1.5rem;
-            border-radius: 12px;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-            text-align: center;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            border: 1px solid var(--border);
-        }
-
-        .document-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-
-        .document-icon {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
-        }
-
-        /* Profile Section */
-        .profile-section {
-            padding: 2rem;
-        }
-
-        .profile-header {
-            background: var(--white);
-            border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-
-        .profile-avatar-large {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
             background: var(--primary-green);
             color: var(--white);
+            padding: 0.5rem;
+            border-radius: 8px;
+            text-align: center;
+            min-width: 50px;
+        }
+
+        .event-day {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .event-month {
+            font-size: 0.8rem;
+        }
+
+        .event-details h4 {
+            margin-bottom: 0.3rem;
+            font-size: 0.95rem;
+        }
+
+        .event-details p {
+            font-size: 0.85rem;
+            color: #65676b;
+        }
+
+        .user-suggestion {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .user-suggestion:last-child {
+            border-bottom: none;
+        }
+
+        .suggestion-info {
+            flex: 1;
+        }
+
+        .suggestion-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .suggestion-meta {
+            font-size: 0.8rem;
+            color: #65676b;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal-header h3 {
+            font-size: 1.3rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #65676b;
+            padding: 0;
+            width: 32px;
+            height: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
-            font-weight: bold;
-            margin: 0 auto 1rem;
+            border-radius: 50%;
         }
 
-        .profile-name {
-            font-size: 1.8rem;
-            font-weight: bold;
+        .close-btn:hover {
+            background: var(--bg-light);
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
             margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.95rem;
         }
 
-        .profile-info-grid {
-            background: var(--white);
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
         }
 
-        /* Footer */
-        footer {
-            background: var(--dark-green);
-            color: var(--white);
-            padding: 2rem;
-            text-align: center;
-            margin-top: 3rem;
+        textarea {
+            resize: vertical;
+            min-height: 100px;
         }
 
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-links {
+        .modal-footer {
             display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
         }
 
-        .footer-links a {
-            color: var(--white);
-            text-decoration: none;
+        .post-options {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .post-option-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .post-option-btn:hover {
+            background: var(--bg-light);
+        }
+
+        #postPreview {
+            margin-top: 1rem;
+        }
+
+        #postPreview img {
+            max-width: 100%;
+            border-radius: 8px;
         }
 
         .hidden {
             display: none !important;
         }
 
-        /* Loading Spinner */
         .spinner {
             border: 3px solid #f3f3f3;
             border-top: 3px solid var(--primary-green);
@@ -843,14 +763,34 @@
             100% { transform: rotate(360deg); }
         }
 
+        .online-indicator {
+            width: 10px;
+            height: 10px;
+            background: #4CAF50;
+            border-radius: 50%;
+            border: 2px solid var(--white);
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+
         /* Responsive */
         @media (max-width: 1200px) {
-            .dashboard-container {
+            .social-main {
                 grid-template-columns: 1fr;
             }
             
-            .left-sidebar, .right-sidebar {
+            .sidebar-left, .sidebar-right {
                 display: none;
+            }
+
+            .social-actions {
+                flex-wrap: wrap;
+            }
+
+            .social-actions .btn {
+                padding: 0.5rem;
+                font-size: 0.85rem;
             }
         }
 
@@ -858,18 +798,22 @@
             .nav-links {
                 display: none;
             }
-            
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-            
-            .hero-stats {
-                gap: 1.5rem;
+
+            .social-search {
+                max-width: 200px;
             }
 
-            .dashboard-container {
-                padding: 1rem;
+            .social-actions {
+                gap: 0.25rem;
             }
+        }
+
+        footer {
+            background: var(--dark-green);
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
         }
     </style>
 </head>
@@ -878,44 +822,37 @@
     <nav>
         <div class="nav-container">
             <div class="logo">
-                <span>🎓 AEESS</span>
+                🎓 AEESS
             </div>
             <ul class="nav-links" id="publicNav">
                 <li><a href="#accueil">Accueil</a></li>
                 <li><a href="#apropos">À propos</a></li>
-                <li><a href="#actions">Nos Actions</a></li>
-                <li><a href="#crise">Crise du Logement</a></li>
                 <li><a href="#dons">Soutenez-nous</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
-            <div class="nav-right">
+            <div>
                 <button class="btn btn-primary" id="loginBtn" onclick="showLogin()">Connexion</button>
-                <div id="userMenu" class="hidden">
-                    <div class="user-avatar" id="userAvatar"></div>
-                    <button class="btn btn-secondary" onclick="logout()">Déconnexion</button>
-                </div>
             </div>
         </div>
     </nav>
 
     <!-- Public Content -->
     <div id="publicContent">
-        <!-- Hero Section -->
         <section class="hero" id="accueil">
             <h1>ENSEMBLE, SOUTENONS NOS ÉTUDIANTS</h1>
             <p>L'Association des Élèves et Étudiants Soninké à Saint-Louis accueille et accompagne les nouveaux bacheliers orientés à l'Université Gaston Berger</p>
             <div class="hero-stats">
                 <div class="stat">
                     <div class="stat-number">30+</div>
-                    <div class="stat-label">Nouveaux étudiants 2025</div>
+                    <div style="font-size: 1rem; opacity: 0.9;">Nouveaux étudiants 2025</div>
                 </div>
                 <div class="stat">
                     <div class="stat-number">280K</div>
-                    <div class="stat-label">FCFA de caution payée</div>
+                    <div style="font-size: 1rem; opacity: 0.9;">FCFA de caution payée</div>
                 </div>
                 <div class="stat">
                     <div class="stat-number">10+</div>
-                    <div class="stat-label">Années d'existence</div>
+                    <div style="font-size: 1rem; opacity: 0.9;">Années d'existence</div>
                 </div>
             </div>
             <div style="margin-top: 2rem;">
@@ -924,293 +861,232 @@
             </div>
         </section>
 
-        <!-- À propos -->
         <section id="apropos">
             <h2>À Propos de l'AEESS</h2>
-            <p style="text-align: center; max-width: 800px; margin: 0 auto 2rem;">
-                L'AEESS est une association à but non lucratif qui, depuis sa création, accueille et accompagne les nouveaux bacheliers orientés à l'Université Gaston Berger de Saint-Louis. Notre mission : garantir leur épanouissement social et éducatif à travers un accompagnement global.
-            </p>
             <div class="crisis-alert">
-                <h3>🏠 Notre Mission Principale : Résoudre la Crise du Logement</h3>
-                <p>L'UGB manque cruellement d'infrastructures de logement. Les anciens étudiants membres de l'AEESS proposent d'héberger nos frères et sœurs dans leurs chambres universitaires, mais nous ne pouvons qu'en accueillir un nombre limité. Pour les autres, l'AEESS cherche des logements aux alentours, ce qui coûte très cher.</p>
+                <h3>🏠 Notre Mission : Résoudre la Crise du Logement</h3>
+                <p>L'UGB manque d'infrastructures. En 2025, nous avons accueilli 30 nouveaux bacheliers. La caution d'un appartement coûte 280 000 FCFA, les loyers varient de 30 000 à 50 000 FCFA/mois. Nous avons prélevé 150 000 FCFA de notre caisse. Sans votre aide, notre mission est compromise.</p>
             </div>
         </section>
 
-        <!-- Nos Actions -->
-        <section id="actions">
-            <h2>Nos Actions</h2>
-            <div class="actions-grid">
-                <div class="action-card">
-                    <h3>🏠 Hébergement & Logement</h3>
-                    <p>Accueil dans les chambres universitaires et recherche de logements privés pour les nouveaux étudiants</p>
-                </div>
-                <div class="action-card">
-                    <h3>📋 Accompagnement Administratif</h3>
-                    <p>Aide aux démarches d'inscription à l'UGB en collaboration avec les associations pédagogiques des UFR</p>
-                </div>
-                <div class="action-card">
-                    <h3>📚 Soutien Pédagogique</h3>
-                    <p>Programme de mentorat (jumelage ancien/nouveau), aide aux cours, TP, TD et préparation d'examens</p>
-                </div>
-                <div class="action-card">
-                    <h3>🎓 Formations</h3>
-                    <p>Prise de parole en public, gestion de conflits, développement personnel</p>
-                </div>
-                <div class="action-card">
-                    <h3>⚽ Activités Sportives</h3>
-                    <p>Organisation de matchs de football pour renforcer la cohésion entre étudiants</p>
-                </div>
-                <div class="action-card">
-                    <h3>🎉 Journées d'Intégration</h3>
-                    <p>Événements d'accueil, thés débats et conférences pour mieux se connaître</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Crise du Logement -->
-        <section id="crise">
-            <h2>🚨 La Crise du Logement à l'UGB</h2>
-            <div class="crisis-alert">
-                <h3>La Réalité sur le Terrain</h3>
-                <ul style="margin-left: 2rem; margin-top: 1rem;">
-                    <li><strong>30 nouveaux bacheliers</strong> accueillis en 2025</li>
-                    <li><strong>280 000 FCFA</strong> de caution pour un seul appartement (3 chambres)</li>
-                    <li><strong>30 000 à 50 000 FCFA</strong> de loyer mensuel par logement</li>
-                    <li><strong>150 000 FCFA</strong> prélevés de la caisse de l'association</li>
-                    <li><strong>Croissance continue</strong> du nombre d'étudiants chaque année</li>
-                </ul>
-            </div>
-            <p style="text-align: center; margin-top: 2rem; font-size: 1.1rem;">
-                <strong>Sans votre aide, nous ne pouvons pas continuer notre mission.</strong><br>
-                Chaque contribution compte pour offrir un toit à nos étudiants.
-            </p>
-        </section>
-
-        <!-- Dons -->
         <section id="dons">
             <h2>💚 Soutenez-nous</h2>
-            <p style="text-align: center; margin-bottom: 2rem;">
-                Un simple geste peut changer un parcours. Participez à la cagnotte de l'AEESS et contribuez à l'avenir de nos étudiants.
-            </p>
-
-            <div class="impact-examples">
-                <div class="impact-item">
-                    <div class="impact-amount">15 000 F</div>
-                    <div>Contribution d'un étudiant à sa caution</div>
-                </div>
-                <div class="impact-item">
-                    <div class="impact-amount">30 000 F</div>
-                    <div>Loyer mensuel minimum d'un logement</div>
-                </div>
-                <div class="impact-item">
-                    <div class="impact-amount">50 000 F</div>
-                    <div>Loyer mensuel complet</div>
-                </div>
-                <div class="impact-item">
-                    <div class="impact-amount">280 000 F</div>
-                    <div>Caution complète d'un appartement</div>
-                </div>
-            </div>
-
-            <h3 style="text-align: center; margin-top: 3rem; margin-bottom: 2rem;">Moyens de Paiement</h3>
-            <div class="donation-methods">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem;">
                 <div class="payment-card">
                     <h3>📱 Wave</h3>
                     <div class="payment-number">78 247 74 12</div>
-                    <p>Envoyez votre contribution via Wave</p>
                 </div>
                 <div class="payment-card">
                     <h3>📱 Orange Money</h3>
                     <div class="payment-number">78 488 89 04</div>
-                    <p>Envoyez votre contribution via Orange Money</p>
                 </div>
             </div>
-
             <p style="text-align: center; margin-top: 2rem; font-style: italic;">
-                Infoline : <strong>+221 78 374 89 95</strong>
+                Infoline : <strong>+221 78 374 89 95</strong> • Email : <strong>aeesssonikara@gmail.com</strong>
             </p>
         </section>
 
-        <!-- Contact -->
         <section id="contact">
             <h2>📞 Contactez-nous</h2>
-            <div style="max-width: 600px; margin: 0 auto;">
-                <div class="action-card" style="text-align: center;">
-                    <p><strong>Email :</strong> aeesssonikara@gmail.com</p>
-                    <p><strong>Téléphone :</strong> +221 78 374 89 95</p>
-                    <p><strong>Localisation :</strong> Sanar Peul, Saint-Louis, Sénégal</p>
-                    <p style="margin-top: 1rem;">Université Gaston Berger de Saint-Louis</p>
-                </div>
+            <div class="action-card" style="max-width: 600px; margin: 0 auto; text-align: center;">
+                <p><strong>Email :</strong> aeesssonikara@gmail.com</p>
+                <p><strong>Téléphone :</strong> +221 78 374 89 95</p>
+                <p><strong>Localisation :</strong> Sanar Peul, Saint-Louis, Sénégal</p>
             </div>
         </section>
     </div>
 
-    <!-- Member Dashboard - Facebook Style -->
-    <div id="memberDashboard" class="dashboard">
-        <div class="dashboard-container">
-            <!-- Left Sidebar -->
-            <div class="left-sidebar">
-                <div class="sidebar-menu">
-                    <div class="menu-item active" onclick="showDashboardSection('feed')">
-                        <span class="menu-icon">🏠</span>
-                        <span>Fil d'actualité</span>
-                    </div>
-                    <div class="menu-item" onclick="showDashboardSection('documents')">
-                        <span class="menu-icon">📚</span>
-                        <span>Documents</span>
-                    </div>
-                    <div class="menu-item" onclick="showDashboardSection('events')">
-                        <span class="menu-icon">📅</span>
-                        <span>Événements</span>
-                    </div>
-                    <div class="menu-item" onclick="showDashboardSection('mentorship')">
-                        <span class="menu-icon">🤝</span>
-                        <span>Mon Mentorat</span>
-                    </div>
-                    <div class="menu-item" onclick="showDashboardSection('profile')">
-                        <span class="menu-icon">👤</span>
-                        <span>Mon Profil</span>
-                    </div>
+    <!-- Social Dashboard -->
+    <div id="socialDashboard" class="social-dashboard">
+        <header class="social-header">
+            <div class="social-nav">
+                <div class="social-logo">AEESS Network</div>
+                <div class="social-search">
+                    <input type="text" id="searchInput" placeholder="Rechercher..." onkeyup="searchContent()">
+                </div>
+                <div class="social-actions">
+                    <button class="btn btn-primary" onclick="showDashboardSection('feed')">🏠</button>
+                    <button class="btn btn-secondary" onclick="showDashboardSection('documents')">📚</button>
+                    <button class="btn btn-secondary" onclick="showDashboardSection('events')">📅</button>
+                    <button class="btn btn-secondary" onclick="logout()">🚪</button>
                 </div>
             </div>
+        </header>
 
-            <!-- Main Feed -->
-            <div class="main-feed">
-                <!-- Feed Section -->
-                <div id="feedSection">
-                    <!-- Create Post -->
-                    <div class="create-post-box">
-                        <div class="post-input-area">
-                            <div class="post-avatar" id="createPostAvatar">U</div>
-                            <textarea class="post-input" id="newPostContent" placeholder="Quoi de neuf, " rows="3"></textarea>
-                        </div>
-                        <div class="post-actions-bar">
-                            <button class="post-action-btn" onclick="createPost()">
-                                <span style="font-size: 1.2rem;">✍️</span>
-                                <span>Publier</span>
-                            </button>
-                            <button class="post-action-btn">
-                                <span style="font-size: 1.2rem;">📷</span>
-                                <span>Photo</span>
-                            </button>
-                            <button class="post-action-btn">
-                                <span style="font-size: 1.2rem;">📄</span>
-                                <span>Document</span>
-                            </button>
+        <main class="social-main">
+            <!-- Sidebar gauche -->
+            <aside class="sidebar-left">
+                <div class="user-profile-card">
+                    <div class="user-avatar-big" id="userAvatarBig">U</div>
+                    <h3 id="userName">Utilisateur</h3>
+                    <p id="userUFR" style="color: #65676b; font-size: 0.9rem;"></p>
+                </div>
+                <ul class="sidebar-menu">
+                    <li><a href="#" onclick="showDashboardSection('feed')"><span>🏠</span> Fil d'actualité</a></li>
+                    <li><a href="#" onclick="showDashboardSection('profile')"><span>👤</span> Mon profil</a></li>
+                    <li><a href="#" onclick="showDashboardSection('documents')"><span>📚</span> Documents</a></li>
+                    <li><a href="#" onclick="showDashboardSection('events')"><span>📅</span> Événements</a></li>
+                    <li><a href="#" onclick="showDashboardSection('mentorship')"><span>🤝</span> Mentorat</a></li>
+                </ul>
+            </aside>
+
+            <!-- Feed central -->
+            <section class="news-feed" id="feedSection">
+                <div class="create-post-card">
+                    <div class="post-input-container">
+                        <div class="post-avatar-small" id="userAvatarSmall">U</div>
+                        <div class="post-input" onclick="showPostModal()">
+                            Quoi de neuf ?
                         </div>
                     </div>
-
-                    <!-- Posts Container -->
-                    <div id="postsContainer">
-                        <div class="spinner"></div>
+                    <div class="post-actions-grid">
+                        <button class="post-action-btn" onclick="showPostModal()">
+                            <span>📷</span> Photo
+                        </button>
+                        <button class="post-action-btn" onclick="showPostModal()">
+                            <span>📄</span> Document
+                        </button>
+                        <button class="post-action-btn" onclick="showPostModal()">
+                            <span>📅</span> Événement
+                        </button>
                     </div>
                 </div>
 
-                <!-- Documents Section -->
-                <div id="documentsSection" class="documents-section hidden">
-                    <div class="upload-box">
-                        <h3 style="margin-bottom: 1.5rem;">📤 Ajouter un document</h3>
-                        <div class="form-group">
-                            <label>Titre du document</label>
-                            <input type="text" id="docTitle" placeholder="Ex: Cours de Mathématiques L1">
-                        </div>
-                        <div class="form-group">
-                            <label>UFR</label>
-                            <select id="docUFR">
-                                <option value="">Sélectionner UFR</option>
-                                <option value="SAT">Sciences Appliquées et Technologie</option>
-                                <option value="LSH">Lettres et Sciences Humaines</option>
-                                <option value="SEG">Sciences Économiques et Gestion</option>
-                                <option value="SJP">Sciences Juridiques et Politiques</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Fichier</label>
-                            <input type="file" id="docFile">
-                        </div>
-                        <button class="btn btn-primary" onclick="uploadDocument()">Télécharger le document</button>
-                    </div>
-                    <h3 style="margin-bottom: 1rem;">📚 Bibliothèque</h3>
-                    <div id="documentsContainer" class="documents-grid">
-                        <div class="spinner"></div>
-                    </div>
+                <div id="socialPostsContainer">
+                    <div class="spinner"></div>
                 </div>
+            </section>
 
-                <!-- Events Section -->
-                <div id="eventsSection" class="documents-section hidden">
-                    <div class="upload-box">
-                        <h3 style="margin-bottom: 1.5rem;">➕ Créer un événement</h3>
-                        <div class="form-group">
-                            <label>Titre</label>
-                            <input type="text" id="eventTitle" placeholder="Ex: Match de football">
-                        </div>
-                        <div class="form-group">
-                            <label>Description</label>
-                            <textarea id="eventDesc" rows="3" placeholder="Détails de l'événement"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Date</label>
-                            <input type="datetime-local" id="eventDate">
-                        </div>
-                        <div class="form-group">
-                            <label>Lieu</label>
-                            <input type="text" id="eventLocation" placeholder="Ex: Terrain de sport UGB">
-                        </div>
-                        <button class="btn btn-primary" onclick="createEvent()">Créer l'événement</button>
+            <!-- Documents Section (hidden by default) -->
+            <section class="news-feed hidden" id="documentsSection">
+                <div class="create-post-card">
+                    <h3>📤 Ajouter un document</h3>
+                    <div class="form-group">
+                        <label>Titre</label>
+                        <input type="text" id="docTitle" placeholder="Ex: Cours de Mathématiques L1">
                     </div>
-                    <h3 style="margin-bottom: 1rem;">📅 Événements à venir</h3>
-                    <div id="eventsContainer">
-                        <div class="spinner"></div>
+                    <div class="form-group">
+                        <label>UFR</label>
+                        <select id="docUFR">
+                            <option value="">Sélectionner UFR</option>
+                            <option value="SAT">Sciences Appliquées et Technologie</option>
+                            <option value="LSH">Lettres et Sciences Humaines</option>
+                            <option value="SEG">Sciences Économiques et Gestion</option>
+                            <option value="SJP">Sciences Juridiques et Politiques</option>
+                        </select>
                     </div>
+                    <div class="form-group">
+                        <label>Fichier</label>
+                        <input type="file" id="docFile">
+                    </div>
+                    <button class="btn btn-primary" onclick="uploadDocument()">Télécharger</button>
                 </div>
-
-                <!-- Mentorship Section -->
-                <div id="mentorshipSection" class="documents-section hidden">
-                    <div class="upload-box">
-                        <h3 style="margin-bottom: 1rem;">🤝 Mon Mentorat</h3>
-                        <p style="margin-bottom: 1.5rem;">Le programme de jumelage AEESS connecte les anciens avec les nouveaux étudiants pour un accompagnement personnalisé.</p>
-                        <div id="mentorshipInfo"></div>
-                    </div>
+                <div id="documentsGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+                    <div class="spinner"></div>
                 </div>
+            </section>
 
-                <!-- Profile Section -->
-                <div id="profileSection" class="profile-section hidden">
-                    <div class="profile-header">
-                        <div class="profile-avatar-large" id="profileAvatarLarge">U</div>
-                        <div class="profile-name" id="profileName">Utilisateur</div>
+            <!-- Events Section (hidden by default) -->
+            <section class="news-feed hidden" id="eventsSection">
+                <div class="create-post-card">
+                    <h3>➕ Créer un événement</h3>
+                    <div class="form-group">
+                        <label>Titre</label>
+                        <input type="text" id="eventTitle" placeholder="Ex: Match de football">
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="eventDesc" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="datetime-local" id="eventDate">
+                    </div>
+                    <div class="form-group">
+                        <label>Lieu</label>
+                        <input type="text" id="eventLocation">
+                    </div>
+                    <button class="btn btn-primary" onclick="createEvent()">Créer</button>
+                </div>
+                <div id="eventsGrid">
+                    <div class="spinner"></div>
+                </div>
+            </section>
+
+            <!-- Profile Section (hidden by default) -->
+            <section class="news-feed hidden" id="profileSection">
+                <div class="create-post-card">
+                    <div style="text-align: center; padding: 1rem;">
+                        <div class="user-avatar-big" id="profileAvatar" style="margin: 0 auto 1rem;">U</div>
+                        <h2 id="profileName">Utilisateur</h2>
                         <p id="profileStatus" style="color: #65676b;"></p>
                     </div>
-                    <div class="profile-info-grid">
-                        <h3 style="margin-bottom: 1.5rem;">Informations personnelles</h3>
-                        <div id="profileInfo"></div>
-                        <button class="btn btn-secondary" onclick="editProfile()" style="margin-top: 1.5rem;">Modifier le profil</button>
+                </div>
+                <div class="create-post-card" style="margin-top: 1rem;">
+                    <h3 style="margin-bottom: 1rem;">Informations</h3>
+                    <div id="profileInfo"></div>
+                </div>
+            </section>
+
+            <!-- Mentorship Section (hidden by default) -->
+            <section class="news-feed hidden" id="mentorshipSection">
+                <div class="create-post-card">
+                    <h3>🤝 Mon Programme de Mentorat</h3>
+                    <div id="mentorshipInfo" style="margin-top: 1rem;">
+                        <div class="spinner"></div>
                     </div>
                 </div>
+            </section>
+
+            <!-- Sidebar droite -->
+            <aside class="sidebar-right">
+                <div class="sidebar-section">
+                    <div class="sidebar-title">📅 Événements à venir</div>
+                    <div id="upcomingEventsList">
+                        <p style="color: #65676b; font-size: 0.9rem;">Chargement...</p>
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="sidebar-title">👥 Membres suggérés</div>
+                    <div id="suggestedUsers">
+                        <p style="color: #65676b; font-size: 0.9rem;">Chargement...</p>
+                    </div>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <!-- Post Modal -->
+    <div id="postModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Créer une publication</h3>
+                <button class="close-btn" onclick="closePostModal()">×</button>
             </div>
-
-            <!-- Right Sidebar -->
-            <div class="right-sidebar">
-                <!-- Contacts -->
-                <div class="contacts-box">
-                    <div class="sidebar-title">Contacts</div>
-                    <div id="contactsList">
-                        <div class="contact-item">
-                            <div class="contact-avatar">
-                                A
-                                <div class="online-dot"></div>
-                            </div>
-                            <div class="contact-name">Membres en ligne</div>
-                        </div>
+            <div>
+                <div class="post-input-container">
+                    <div class="post-avatar-small" id="modalUserAvatar">U</div>
+                    <div>
+                        <strong id="modalUserName">Utilisateur</strong>
+                        <div style="font-size: 0.85rem; color: #65676b; margin-top: 0.2rem;">🌍 Public</div>
                     </div>
                 </div>
-
-                <!-- Upcoming Events -->
-                <div class="events-box">
-                    <div class="sidebar-title">Événements à venir</div>
-                    <div id="upcomingEvents">
-                        <p style="color: #65676b; font-size: 0.9rem;">Aucun événement programmé</p>
-                    </div>
+                <div class="form-group">
+                    <textarea id="postContent" placeholder="Quoi de neuf ?" rows="5" style="border: none; font-size: 1.1rem;"></textarea>
                 </div>
+                <div id="postPreview"></div>
+            </div>
+            <div class="modal-footer">
+                <div class="post-options">
+                    <button class="post-option-btn" onclick="triggerFileInput('image')" title="Photo">
+                        <span style="font-size: 1.5rem;">📷</span>
+                    </button>
+                    <button class="post-option-btn" onclick="triggerFileInput('document')" title="Document">
+                        <span style="font-size: 1.5rem;">📄</span>
+                    </button>
+                </div>
+                <button class="btn btn-primary" onclick="createSocialPost()">Publier</button>
             </div>
         </div>
     </div>
@@ -1218,21 +1094,23 @@
     <!-- Login Modal -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
-            <h2 style="margin-bottom: 1.5rem;">Connexion</h2>
-            <form id="loginForm" onsubmit="login(event)">
+            <div class="modal-header">
+                <h3>Connexion</h3>
+                <button class="close-btn" onclick="closeModal()">×</button>
+            </div>
+            <form onsubmit="login(event)">
                 <div class="form-group">
                     <label>Email</label>
-                    <input type="email" id="loginEmail" required placeholder="votre@email.com">
+                    <input type="email" id="loginEmail" required>
                 </div>
                 <div class="form-group">
                     <label>Mot de passe</label>
-                    <input type="password" id="loginPassword" required placeholder="••••••••">
+                    <input type="password" id="loginPassword" required>
                 </div>
                 <button type="submit" class="btn btn-primary" style="width: 100%;">Se connecter</button>
-                <p style="text-align: center; margin-top: 1.5rem;">
-                    Pas encore membre ? <a href="#" onclick="showRegister()" style="color: var(--primary-green); font-weight: 600;">S'inscrire</a>
+                <p style="text-align: center; margin-top: 1rem;">
+                    Pas encore membre ? <a href="#" onclick="showRegister()" style="color: var(--primary-green);">S'inscrire</a>
                 </p>
-                <button type="button" class="btn btn-secondary" onclick="closeModal()" style="width: 100%; margin-top: 1rem;">Annuler</button>
             </form>
         </div>
     </div>
@@ -1240,28 +1118,31 @@
     <!-- Register Modal -->
     <div id="registerModal" class="modal">
         <div class="modal-content">
-            <h2 style="margin-bottom: 1.5rem;">Inscription</h2>
-            <form id="registerForm" onsubmit="register(event)">
+            <div class="modal-header">
+                <h3>Inscription</h3>
+                <button class="close-btn" onclick="closeModal()">×</button>
+            </div>
+            <form onsubmit="register(event)">
                 <div class="form-group">
                     <label>Nom complet</label>
-                    <input type="text" id="registerName" required placeholder="Prénom Nom">
+                    <input type="text" id="registerName" required>
                 </div>
                 <div class="form-group">
                     <label>Email</label>
-                    <input type="email" id="registerEmail" required placeholder="votre@email.com">
+                    <input type="email" id="registerEmail" required>
                 </div>
                 <div class="form-group">
                     <label>Mot de passe</label>
-                    <input type="password" id="registerPassword" required minlength="6" placeholder="Min. 6 caractères">
+                    <input type="password" id="registerPassword" required minlength="6">
                 </div>
                 <div class="form-group">
                     <label>Téléphone</label>
-                    <input type="tel" id="registerPhone" required placeholder="77 123 45 67">
+                    <input type="tel" id="registerPhone" required>
                 </div>
                 <div class="form-group">
                     <label>UFR</label>
                     <select id="registerUFR" required>
-                        <option value="">Sélectionner votre UFR</option>
+                        <option value="">Sélectionner</option>
                         <option value="SAT">Sciences Appliquées et Technologie</option>
                         <option value="LSH">Lettres et Sciences Humaines</option>
                         <option value="SEG">Sciences Économiques et Gestion</option>
@@ -1288,27 +1169,18 @@
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary" style="width: 100%;">S'inscrire</button>
-                <p style="text-align: center; margin-top: 1.5rem;">
-                    Déjà membre ? <a href="#" onclick="showLogin()" style="color: var(--primary-green); font-weight: 600;">Se connecter</a>
+                <p style="text-align: center; margin-top: 1rem;">
+                    Déjà membre ? <a href="#" onclick="showLogin()" style="color: var(--primary-green);">Se connecter</a>
                 </p>
-                <button type="button" class="btn btn-secondary" onclick="closeModal()" style="width: 100%; margin-top: 1rem;">Annuler</button>
             </form>
         </div>
     </div>
 
-    <!-- Footer -->
+    <input type="file" id="fileInput" style="display: none;" accept="image/*,.pdf,.doc,.docx" onchange="handleFileSelect(event)">
+
     <footer>
-        <div class="footer-content">
-            <div class="footer-links">
-                <a href="#accueil">Accueil</a>
-                <a href="#apropos">À propos</a>
-                <a href="#actions">Nos Actions</a>
-                <a href="#dons">Soutenez-nous</a>
-                <a href="#contact">Contact</a>
-            </div>
-            <p>&copy; 2025 AEESS - Association des Élèves et Étudiants Soninké à Saint-Louis</p>
-            <p>Soninkara djiké na rémou nè</p>
-        </div>
+        <p>&copy; 2025 AEESS - Association des Élèves et Étudiants Soninké à Saint-Louis</p>
+        <p>Soninkara djiké na rémou nè</p>
     </footer>
 
     <script>
@@ -1318,18 +1190,18 @@
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
         let currentUser = null;
-        let currentCommentPost = null;
+        let selectedFile = null;
 
-        // Check auth on load
+        // Check auth
         async function checkAuth() {
             const { data: { session } } = await supabase.auth.getSession();
             if (session) {
                 currentUser = session.user;
-                showMemberDashboard();
+                showSocialDashboard();
             }
         }
 
-        // Modal Functions
+        // Modal functions
         function showLogin() {
             closeModal();
             document.getElementById('loginModal').classList.add('active');
@@ -1345,55 +1217,55 @@
             document.getElementById('registerModal').classList.remove('active');
         }
 
+        function showPostModal() {
+            document.getElementById('postModal').classList.add('active');
+        }
+
+        function closePostModal() {
+            document.getElementById('postModal').classList.remove('active');
+            document.getElementById('postContent').value = '';
+            document.getElementById('postPreview').innerHTML = '';
+            selectedFile = null;
+        }
+
         // Login
-        async function login(event) {
-            event.preventDefault();
+        async function login(e) {
+            e.preventDefault();
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
 
-            const { data, error } = await supabase.auth.signInWithPassword({
-                email: email,
-                password: password
-            });
+            const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
             if (error) {
-                alert('Erreur de connexion: ' + error.message);
+                alert('Erreur: ' + error.message);
             } else {
                 currentUser = data.user;
                 closeModal();
-                showMemberDashboard();
+                showSocialDashboard();
             }
         }
 
         // Register
-        async function register(event) {
-            event.preventDefault();
-            const email = document.getElementById('registerEmail').value;
-            const password = document.getElementById('registerPassword').value;
-            const name = document.getElementById('registerName').value;
-            const phone = document.getElementById('registerPhone').value;
-            const ufr = document.getElementById('registerUFR').value;
-            const year = document.getElementById('registerYear').value;
-            const status = document.getElementById('registerStatus').value;
-
+        async function register(e) {
+            e.preventDefault();
             const { data, error } = await supabase.auth.signUp({
-                email: email,
-                password: password,
+                email: document.getElementById('registerEmail').value,
+                password: document.getElementById('registerPassword').value,
                 options: {
                     data: {
-                        full_name: name,
-                        phone: phone,
-                        ufr: ufr,
-                        year: year,
-                        status: status
+                        full_name: document.getElementById('registerName').value,
+                        phone: document.getElementById('registerPhone').value,
+                        ufr: document.getElementById('registerUFR').value,
+                        year: document.getElementById('registerYear').value,
+                        status: document.getElementById('registerStatus').value
                     }
                 }
             });
 
             if (error) {
-                alert('Erreur d\'inscription: ' + error.message);
+                alert('Erreur: ' + error.message);
             } else {
-                alert('Inscription réussie! Vérifiez votre email pour confirmer votre compte.');
+                alert('Inscription réussie! Vérifiez votre email.');
                 closeModal();
             }
         }
@@ -1402,112 +1274,143 @@
         async function logout() {
             await supabase.auth.signOut();
             currentUser = null;
-            showPublicContent();
-        }
-
-        // Show Member Dashboard
-        function showMemberDashboard() {
-            document.getElementById('publicContent').style.display = 'none';
-            document.getElementById('memberDashboard').classList.add('active');
-            document.getElementById('loginBtn').classList.add('hidden');
-            document.getElementById('userMenu').classList.remove('hidden');
-            
-            const initial = currentUser.user_metadata.full_name ? currentUser.user_metadata.full_name.charAt(0).toUpperCase() : 'U';
-            document.getElementById('userAvatar').textContent = initial;
-            document.getElementById('createPostAvatar').textContent = initial;
-            
-            loadPosts();
-            loadUpcomingEvents();
-        }
-
-        // Show Public Content
-        function showPublicContent() {
             document.getElementById('publicContent').style.display = 'block';
-            document.getElementById('memberDashboard').classList.remove('active');
+            document.getElementById('socialDashboard').classList.remove('active');
             document.getElementById('loginBtn').classList.remove('hidden');
-            document.getElementById('userMenu').classList.add('hidden');
         }
 
-        // Dashboard Navigation
-        function showDashboardSection(section) {
-            // Update menu items
-            document.querySelectorAll('.menu-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            event.target.closest('.menu-item').classList.add('active');
+        // Show dashboard
+        function showSocialDashboard() {
+            document.getElementById('publicContent').style.display = 'none';
+            document.getElementById('socialDashboard').classList.add('active');
+            document.getElementById('loginBtn').classList.add('hidden');
+            
+            loadUserProfile();
+            loadSocialPosts();
+            loadUpcomingEvents();
+            loadSuggestedUsers();
+        }
 
-            // Hide all sections
+        // Load user profile
+        function loadUserProfile() {
+            const name = currentUser.user_metadata.full_name || 'Utilisateur';
+            const initial = name.charAt(0).toUpperCase();
+            
+            document.getElementById('userAvatarBig').textContent = initial;
+            document.getElementById('userAvatarSmall').textContent = initial;
+            document.getElementById('modalUserAvatar').textContent = initial;
+            document.getElementById('userName').textContent = name;
+            document.getElementById('modalUserName').textContent = name;
+            document.getElementById('userUFR').textContent = (currentUser.user_metadata.ufr || '') + ' • ' + (currentUser.user_metadata.year || '');
+        }
+
+        // Dashboard sections
+        function showDashboardSection(section) {
             document.getElementById('feedSection').classList.add('hidden');
             document.getElementById('documentsSection').classList.add('hidden');
             document.getElementById('eventsSection').classList.add('hidden');
-            document.getElementById('mentorshipSection').classList.add('hidden');
             document.getElementById('profileSection').classList.add('hidden');
+            document.getElementById('mentorshipSection').classList.add('hidden');
 
-            // Show selected section
             if (section === 'feed') {
                 document.getElementById('feedSection').classList.remove('hidden');
-                loadPosts();
+                loadSocialPosts();
             } else if (section === 'documents') {
                 document.getElementById('documentsSection').classList.remove('hidden');
                 loadDocuments();
             } else if (section === 'events') {
                 document.getElementById('eventsSection').classList.remove('hidden');
                 loadEvents();
-            } else if (section === 'mentorship') {
-                document.getElementById('mentorshipSection').classList.remove('hidden');
-                loadMentorship();
             } else if (section === 'profile') {
                 document.getElementById('profileSection').classList.remove('hidden');
                 loadProfile();
+            } else if (section === 'mentorship') {
+                document.getElementById('mentorshipSection').classList.remove('hidden');
+                loadMentorship();
             }
         }
 
-        // Create Post
-        async function createPost() {
-            const content = document.getElementById('newPostContent').value.trim();
-            if (!content) {
-                alert('Veuillez entrer du contenu');
+        // File handling
+        function triggerFileInput(type) {
+            const input = document.getElementById('fileInput');
+            input.accept = type === 'image' ? 'image/*' : '.pdf,.doc,.docx';
+            input.click();
+        }
+
+        function handleFileSelect(e) {
+            selectedFile = e.target.files[0];
+            if (!selectedFile) return;
+
+            const preview = document.getElementById('postPreview');
+            if (selectedFile.type.startsWith('image/')) {
+                preview.innerHTML = `<img src="${URL.createObjectURL(selectedFile)}" style="max-width: 100%; border-radius: 8px;">`;
+            } else {
+                preview.innerHTML = `<div style="padding: 1rem; background: var(--bg-light); border-radius: 8px;">📄 ${selectedFile.name}</div>`;
+            }
+        }
+
+        // Create post
+        async function createSocialPost() {
+            const content = document.getElementById('postContent').value.trim();
+            if (!content && !selectedFile) {
+                alert('Veuillez ajouter du contenu');
                 return;
             }
 
-            const { error } = await supabase
-                .from('posts')
-                .insert([{
-                    user_id: currentUser.id,
-                    content: content,
-                    author_name: currentUser.user_metadata.full_name
-                }]);
+            let fileUrl = null;
+            let fileType = null;
+
+            if (selectedFile) {
+                const fileName = `${Date.now()}_${selectedFile.name}`;
+                const { error: uploadError } = await supabase.storage
+                    .from('documents')
+                    .upload(fileName, selectedFile);
+
+                if (!uploadError) {
+                    const { data: urlData } = supabase.storage.from('documents').getPublicUrl(fileName);
+                    fileUrl = urlData.publicUrl;
+                    fileType = selectedFile.type.startsWith('image/') ? 'image' : 'document';
+                }
+            }
+
+            const { error } = await supabase.from('posts').insert([{
+                user_id: currentUser.id,
+                author_name: currentUser.user_metadata.full_name,
+                content: content,
+                media_url: fileUrl,
+                media_type: fileType
+            }]);
 
             if (error) {
                 alert('Erreur: ' + error.message);
             } else {
-                document.getElementById('newPostContent').value = '';
-                loadPosts();
+                closePostModal();
+                loadSocialPosts();
             }
         }
 
-        // Load Posts
-        async function loadPosts() {
+        // Load posts
+        async function loadSocialPosts() {
             const { data, error } = await supabase
                 .from('posts')
-                .select('*')
+                .select('*, likes(count)')
                 .order('created_at', { ascending: false });
 
-            const container = document.getElementById('postsContainer');
+            const container = document.getElementById('socialPostsContainer');
             
             if (error || !data || data.length === 0) {
-                container.innerHTML = '<div style="text-align: center; padding: 3rem; color: #65676b;"><p>Aucune publication pour le moment.</p><p style="margin-top: 0.5rem; font-size: 0.9rem;">Soyez le premier à publier!</p></div>';
+                container.innerHTML = '<div class="post-card" style="text-align: center; padding: 3rem;"><p>Aucune publication.</p></div>';
                 return;
             }
 
             container.innerHTML = '';
             for (const post of data) {
-                const postCard = await createPostCard(post);
-                container.appendChild(postCard);
+                const card = await createPostCard(post);
+                container.appendChild(card);
             }
         }
 
-        // Create Post Card
+        // Create post card
         async function createPostCard(post) {
             const card = document.createElement('div');
             card.className = 'post-card';
@@ -1515,186 +1418,174 @@
             const initial = post.author_name ? post.author_name.charAt(0).toUpperCase() : 'U';
             const timeAgo = getTimeAgo(new Date(post.created_at));
             
-            // Get comments
             const { data: comments } = await supabase
                 .from('comments')
                 .select('*')
-                .eq('post_id', post.id)
-                .order('created_at', { ascending: true});
+                .eq('post_id', post.id);
             
-            const commentsCount = comments ? comments.length : 0;
+            const { data: likes } = await supabase
+                .from('likes')
+                .select('*')
+                .eq('post_id', post.id);
+            
+            const { data: userLike } = await supabase
+                .from('likes')
+                .select('*')
+                .eq('post_id', post.id)
+                .eq('user_id', currentUser.id)
+                .single();
             
             card.innerHTML = `
                 <div class="post-header">
-                    <div class="post-avatar">${initial}</div>
-                    <div class="post-author-info">
-                        <div class="post-author-name">${post.author_name || 'Utilisateur'}</div>
-                        <div class="post-time">${timeAgo}</div>
+                    <div style="position: relative;">
+                        <div class="post-avatar-small">${initial}</div>
+                        <div class="online-indicator"></div>
+                    </div>
+                    <div class="post-user-info">
+                        <h4>${post.author_name || 'Utilisateur'}</h4>
+                        <div class="post-meta">${timeAgo}</div>
                     </div>
                 </div>
-                <div class="post-content">${post.content}</div>
-                <div class="post-stats">
-                    <span>${post.likes_count || 0} J'aime</span>
-                    <span>${commentsCount} commentaire${commentsCount !== 1 ? 's' : ''}</span>
+                <div class="post-content">
+                    <p>${post.content.replace(/\n/g, '<br>')}</p>
+                    ${post.media_url ? (post.media_type === 'image' ? 
+                        `<img src="${post.media_url}" class="post-image">` : 
+                        `<div style="padding: 1rem; background: var(--bg-light); border-radius: 8px; margin-top: 1rem; text-align: center;">
+                            <div style="font-size: 2rem;">📄</div>
+                            <a href="${post.media_url}" target="_blank">Télécharger le document</a>
+                        </div>`) : ''}
                 </div>
-                <div class="post-actions">
-                    <button class="post-action" onclick="toggleLike('${post.id}')">
+                <div class="post-stats">
+                    <span>👍 ${likes ? likes.length : 0} j'aime</span>
+                    <span>💬 ${comments ? comments.length : 0} commentaires</span>
+                </div>
+                <div class="post-actions-buttons">
+                    <button class="post-action-button ${userLike ? 'liked' : ''}" onclick="toggleLike('${post.id}')">
                         <span>👍</span> J'aime
                     </button>
-                    <button class="post-action" onclick="toggleComments('${post.id}')">
+                    <button class="post-action-button" onclick="toggleComments('${post.id}')">
                         <span>💬</span> Commenter
                     </button>
-                    <button class="post-action">
-                        <span>🔗</span> Partager
+                    <button class="post-action-button">
+                        <span>🔄</span> Partager
                     </button>
                 </div>
-                <div class="comments-section hidden" id="comments-${post.id}">
-                    <div id="comments-list-${post.id}"></div>
-                    <div class="comment-input-area">
+                <div id="comments-${post.id}" class="comments-section hidden">
+                    <div class="comment-input-container">
                         <div class="comment-avatar">${currentUser.user_metadata.full_name ? currentUser.user_metadata.full_name.charAt(0).toUpperCase() : 'U'}</div>
-                        <input type="text" class="comment-input" id="comment-input-${post.id}" placeholder="Écrivez un commentaire...">
-                        <button class="btn btn-primary" onclick="addComment('${post.id'}" style="padding: 0.5rem 1rem;">✉️</button>
+                        <input type="text" class="comment-input" placeholder="Commenter..." onkeypress="if(event.key==='Enter') addComment('${post.id}', this.value, this)">
                     </div>
+                    <div class="comment-list" id="comments-list-${post.id}"></div>
                 </div>
             `;
+            
+            if (comments && comments.length > 0) {
+                setTimeout(() => loadComments(post.id), 100);
+            }
             
             return card;
         }
 
-        // Toggle Comments
-        async function toggleComments(postId) {
-            const commentsSection = document.getElementById(`comments-${postId}`);
-            if (commentsSection.classList.contains('hidden')) {
-                commentsSection.classList.remove('hidden');
-                await loadComments(postId);
-            } else {
-                commentsSection.classList.add('hidden');
-            }
-        }
-
-        // Load Comments
-        async function loadComments(postId) {
-            const { data, error } = await supabase
-                .from('comments')
-                .select('*')
-                .eq('post_id', postId)
-                .order('created_at', { ascending: true });
-            
-            const container = document.getElementById(`comments-list-${postId}`);
-            if (!data || data.length === 0) {
-                container.innerHTML = '';
-                return;
-            }
-            
-            container.innerHTML = data.map(comment => {
-                const initial = comment.author_name ? comment.author_name.charAt(0).toUpperCase() : 'U';
-                const timeAgo = getTimeAgo(new Date(comment.created_at));
-                return `
-                    <div class="comment-item">
-                        <div class="comment-avatar">${initial}</div>
-                        <div class="comment-content">
-                            <div class="comment-bubble">
-                                <div class="comment-author">${comment.author_name || 'Utilisateur'}</div>
-                                <div class="comment-text">${comment.content}</div>
-                            </div>
-                            <div class="comment-time">${timeAgo}</div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        // Add Comment
-        async function addComment(postId) {
-            const input = document.getElementById(`comment-input-${postId}`);
-            const content = input.value.trim();
-            
-            if (!content) return;
-            
-            const { error } = await supabase
-                .from('comments')
-                .insert([{
-                    post_id: postId,
-                    user_id: currentUser.id,
-                    author_name: currentUser.user_metadata.full_name,
-                    content: content
-                }]);
-            
-            if (!error) {
-                input.value = '';
-                await loadComments(postId);
-            }
-        }
-
-        // Toggle Like
+        // Toggle like
         async function toggleLike(postId) {
-            // Check if already liked
             const { data: existing } = await supabase
                 .from('likes')
                 .select('*')
                 .eq('post_id', postId)
                 .eq('user_id', currentUser.id)
                 .single();
-            
+
             if (existing) {
-                // Unlike
-                await supabase
-                    .from('likes')
-                    .delete()
-                    .eq('post_id', postId)
-                    .eq('user_id', currentUser.id);
+                await supabase.from('likes').delete().eq('post_id', postId).eq('user_id', currentUser.id);
             } else {
-                // Like
-                await supabase
-                    .from('likes')
-                    .insert([{
-                        post_id: postId,
-                        user_id: currentUser.id
-                    }]);
+                await supabase.from('likes').insert([{ post_id: postId, user_id: currentUser.id }]);
             }
             
-            loadPosts();
+            loadSocialPosts();
         }
 
-        // Upload Document
+        // Toggle comments
+        function toggleComments(postId) {
+            document.getElementById(`comments-${postId}`).classList.toggle('hidden');
+        }
+
+        // Add comment
+        async function addComment(postId, content, input) {
+            if (!content.trim()) return;
+            
+            const { error } = await supabase.from('comments').insert([{
+                post_id: postId,
+                user_id: currentUser.id,
+                author_name: currentUser.user_metadata.full_name,
+                content: content
+            }]);
+
+            if (!error) {
+                input.value = '';
+                loadComments(postId);
+            }
+        }
+
+        // Load comments
+        async function loadComments(postId) {
+            const { data } = await supabase
+                .from('comments')
+                .select('*')
+                .eq('post_id', postId)
+                .order('created_at', { ascending: true });
+
+            const container = document.getElementById(`comments-list-${postId}`);
+            if (!data || data.length === 0) {
+                container.innerHTML = '';
+                return;
+            }
+
+            container.innerHTML = data.map(c => {
+                const initial = c.author_name ? c.author_name.charAt(0).toUpperCase() : 'U';
+                return `
+                    <div class="comment-item">
+                        <div class="comment-avatar">${initial}</div>
+                        <div>
+                            <div class="comment-bubble">
+                                <div class="comment-author">${c.author_name || 'Utilisateur'}</div>
+                                <div class="comment-text">${c.content}</div>
+                            </div>
+                            <div class="comment-time">${getTimeAgo(new Date(c.created_at))}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Upload document
         async function uploadDocument() {
             const title = document.getElementById('docTitle').value;
             const ufr = document.getElementById('docUFR').value;
-            const fileInput = document.getElementById('docFile');
-            const file = fileInput.files[0];
+            const file = document.getElementById('docFile').files[0];
 
             if (!title || !ufr || !file) {
-                alert('Veuillez remplir tous les champs');
+                alert('Remplissez tous les champs');
                 return;
             }
 
             const fileName = `${Date.now()}_${file.name}`;
-            const { error: uploadError } = await supabase.storage
-                .from('documents')
-                .upload(fileName, file);
+            const { error: uploadError } = await supabase.storage.from('documents').upload(fileName, file);
 
             if (uploadError) {
                 alert('Erreur: ' + uploadError.message);
                 return;
             }
 
-            const { data: urlData } = supabase.storage
-                .from('documents')
-                .getPublicUrl(fileName);
+            const { data: urlData } = supabase.storage.from('documents').getPublicUrl(fileName);
+            
+            const { error } = await supabase.from('documents').insert([{
+                title, ufr,
+                file_url: urlData.publicUrl,
+                uploaded_by: currentUser.id,
+                uploader_name: currentUser.user_metadata.full_name
+            }]);
 
-            const { error } = await supabase
-                .from('documents')
-                .insert([{
-                    title: title,
-                    ufr: ufr,
-                    file_url: urlData.publicUrl,
-                    uploaded_by: currentUser.id,
-                    uploader_name: currentUser.user_metadata.full_name
-                }]);
-
-            if (error) {
-                alert('Erreur: ' + error.message);
-            } else {
+            if (!error) {
                 document.getElementById('docTitle').value = '';
                 document.getElementById('docUFR').value = '';
                 document.getElementById('docFile').value = '';
@@ -1702,31 +1593,27 @@
             }
         }
 
-        // Load Documents
+        // Load documents
         async function loadDocuments() {
-            const { data, error } = await supabase
-                .from('documents')
-                .select('*')
-                .order('created_at', { ascending: false });
-
-            const container = document.getElementById('documentsContainer');
+            const { data } = await supabase.from('documents').select('*').order('created_at', { ascending: false });
+            const container = document.getElementById('documentsGrid');
             
-            if (error || !data || data.length === 0) {
-                container.innerHTML = '<p style="text-align: center; color: #65676b; grid-column: 1/-1;">Aucun document disponible.</p>';
+            if (!data || data.length === 0) {
+                container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #65676b;">Aucun document</p>';
                 return;
             }
 
-            container.innerHTML = data.map(doc => `
-                <div class="document-card" onclick="window.open('${doc.file_url}', '_blank')">
-                    <div class="document-icon">📄</div>
-                    <strong>${doc.title}</strong>
-                    <div style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">${doc.ufr}</div>
-                    <div style="font-size: 0.8rem; color: #999; margin-top: 0.3rem;">Par ${doc.uploader_name || 'Anonyme'}</div>
+            container.innerHTML = data.map(d => `
+                <div class="action-card" style="text-align: center; cursor: pointer;" onclick="window.open('${d.file_url}')">
+                    <div style="font-size: 3rem;">📄</div>
+                    <strong style="display: block; margin: 0.5rem 0;">${d.title}</strong>
+                    <div style="font-size: 0.85rem; color: #65676b;">${d.ufr}</div>
+                    <div style="font-size: 0.8rem; color: #999; margin-top: 0.3rem;">${d.uploader_name || 'Anonyme'}</div>
                 </div>
             `).join('');
         }
 
-        // Create Event
+        // Create event
         async function createEvent() {
             const title = document.getElementById('eventTitle').value;
             const desc = document.getElementById('eventDesc').value;
@@ -1734,59 +1621,49 @@
             const location = document.getElementById('eventLocation').value;
 
             if (!title || !date) {
-                alert('Veuillez remplir au minimum le titre et la date');
+                alert('Titre et date requis');
                 return;
             }
 
-            const { error } = await supabase
-                .from('events')
-                .insert([{
-                    title: title,
-                    description: desc,
-                    event_date: date,
-                    location: location,
-                    created_by: currentUser.id
-                }]);
+            const { error } = await supabase.from('events').insert([{
+                title, description: desc, event_date: date, location,
+                created_by: currentUser.id
+            }]);
 
-            if (error) {
-                alert('Erreur: ' + error.message);
-            } else {
+            if (!error) {
                 document.getElementById('eventTitle').value = '';
                 document.getElementById('eventDesc').value = '';
                 document.getElementById('eventDate').value = '';
                 document.getElementById('eventLocation').value = '';
                 loadEvents();
+                loadUpcomingEvents();
             }
         }
 
-        // Load Events
+        // Load events
         async function loadEvents() {
-            const { data, error } = await supabase
-                .from('events')
-                .select('*')
-                .order('event_date', { ascending: true });
-
-            const container = document.getElementById('eventsContainer');
+            const { data } = await supabase.from('events').select('*').order('event_date', { ascending: true });
+            const container = document.getElementById('eventsGrid');
             
-            if (error || !data || data.length === 0) {
-                container.innerHTML = '<div class="action-card"><p style="text-align: center; color: #65676b;">Aucun événement programmé.</p></div>';
+            if (!data || data.length === 0) {
+                container.innerHTML = '<div class="action-card"><p style="text-align: center; color: #65676b;">Aucun événement</p></div>';
                 return;
             }
 
-            container.innerHTML = data.map(event => {
-                const eventDate = new Date(event.event_date);
+            container.innerHTML = data.map(e => {
+                const d = new Date(e.event_date);
                 return `
                     <div class="action-card">
-                        <h3>${event.title}</h3>
-                        <p><strong>📅 Date :</strong> ${eventDate.toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
-                        ${event.location ? `<p><strong>📍 Lieu :</strong> ${event.location}</p>` : ''}
-                        ${event.description ? `<p style="margin-top: 1rem;">${event.description}</p>` : ''}
+                        <h3>${e.title}</h3>
+                        <p><strong>📅</strong> ${d.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+                        ${e.location ? `<p><strong>📍</strong> ${e.location}</p>` : ''}
+                        ${e.description ? `<p style="margin-top: 1rem;">${e.description}</p>` : ''}
                     </div>
                 `;
             }).join('');
         }
 
-        // Load Upcoming Events (Sidebar)
+        // Load upcoming events (sidebar)
         async function loadUpcomingEvents() {
             const { data } = await supabase
                 .from('events')
@@ -1795,96 +1672,69 @@
                 .order('event_date', { ascending: true })
                 .limit(3);
 
-            const container = document.getElementById('upcomingEvents');
+            const container = document.getElementById('upcomingEventsList');
             
             if (!data || data.length === 0) {
                 container.innerHTML = '<p style="color: #65676b; font-size: 0.9rem;">Aucun événement programmé</p>';
                 return;
             }
 
-            container.innerHTML = data.map(event => {
-                const eventDate = new Date(event.event_date);
+            container.innerHTML = data.map(e => {
+                const d = new Date(e.event_date);
                 return `
                     <div class="event-item">
-                        <div class="event-date">${eventDate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })}</div>
-                        <div class="event-title">${event.title}</div>
+                        <div class="event-date">
+                            <div class="event-day">${d.getDate()}</div>
+                            <div class="event-month">${d.toLocaleDateString('fr-FR', { month: 'short' }).toUpperCase()}</div>
+                        </div>
+                        <div class="event-details">
+                            <h4>${e.title}</h4>
+                            <p>🕒 ${d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}</p>
+                        </div>
                     </div>
                 `;
             }).join('');
         }
 
-        // Load Mentorship
-        async function loadMentorship() {
-            const container = document.getElementById('mentorshipInfo');
-            const userStatus = currentUser.user_metadata.status;
+        // Load suggested users
+        async function loadSuggestedUsers() {
+            const { data } = await supabase
+                .from('profiles')
+                .select('*')
+                .neq('id', currentUser.id)
+                .limit(5);
 
-            if (userStatus === 'nouveau') {
-                // Check if has mentor
-                const { data } = await supabase
-                    .from('mentorship')
-                    .select('*, mentor:profiles!mentorship_mentor_id_fkey(full_name, phone, ufr)')
-                    .eq('mentee_id', currentUser.id)
-                    .eq('status', 'active')
-                    .single();
-
-                if (data && data.mentor) {
-                    container.innerHTML = `
-                        <div class="action-card">
-                            <h4>👨‍🏫 Votre Mentor</h4>
-                            <p style="margin-top: 1rem;"><strong>Nom :</strong> ${data.mentor.full_name || 'N/A'}</p>
-                            <p><strong>UFR :</strong> ${data.mentor.ufr || 'N/A'}</p>
-                            <p><strong>Téléphone :</strong> ${data.mentor.phone || 'N/A'}</p>
-                            <p style="margin-top: 1rem; color: #65676b;">Votre mentor est là pour vous accompagner dans vos cours, TD, TP et préparation d'examens.</p>
-                        </div>
-                    `;
-                } else {
-                    container.innerHTML = `
-                        <div class="action-card">
-                            <p style="color: #65676b;">Vous n'avez pas encore de mentor assigné. Contactez l'administration de l'AEESS pour être jumelé avec un ancien.</p>
-                        </div>
-                    `;
-                }
-            } else {
-                // Check if mentoring someone
-                const { data } = await supabase
-                    .from('mentorship')
-                    .select('*, mentee:profiles!mentorship_mentee_id_fkey(full_name, phone, ufr, year)')
-                    .eq('mentor_id', currentUser.id)
-                    .eq('status', 'active');
-
-                if (data && data.length > 0) {
-                    container.innerHTML = `
-                        <h4>👥 Vos Filleuls</h4>
-                        ${data.map(m => `
-                            <div class="action-card" style="margin-top: 1rem;">
-                                <p><strong>Nom :</strong> ${m.mentee.full_name || 'N/A'}</p>
-                                <p><strong>UFR :</strong> ${m.mentee.ufr || 'N/A'}</p>
-                                <p><strong>Année :</strong> ${m.mentee.year || 'N/A'}</p>
-                                <p><strong>Téléphone :</strong> ${m.mentee.phone || 'N/A'}</p>
-                            </div>
-                        `).join('')}
-                    `;
-                } else {
-                    container.innerHTML = `
-                        <div class="action-card">
-                            <p style="color: #65676b;">Vous n'êtes pas encore mentor. Proposez-vous pour accompagner un nouveau bachelier!</p>
-                        </div>
-                    `;
-                }
+            const container = document.getElementById('suggestedUsers');
+            
+            if (!data || data.length === 0) {
+                container.innerHTML = '<p style="color: #65676b; font-size: 0.9rem;">Aucune suggestion</p>';
+                return;
             }
+
+            container.innerHTML = data.map(u => {
+                const initial = u.full_name ? u.full_name.charAt(0).toUpperCase() : 'U';
+                return `
+                    <div class="user-suggestion">
+                        <div class="post-avatar-small">${initial}</div>
+                        <div class="suggestion-info">
+                            <div class="suggestion-name">${u.full_name || 'Utilisateur'}</div>
+                            <div class="suggestion-meta">${u.ufr || ''} • ${u.year || ''}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
         }
 
-        // Load Profile
-        async function loadProfile() {
+        // Load profile
+        function loadProfile() {
             const user = currentUser;
             const initial = user.user_metadata.full_name ? user.user_metadata.full_name.charAt(0).toUpperCase() : 'U';
             
-            document.getElementById('profileAvatarLarge').textContent = initial;
+            document.getElementById('profileAvatar').textContent = initial;
             document.getElementById('profileName').textContent = user.user_metadata.full_name || 'Utilisateur';
             document.getElementById('profileStatus').textContent = user.user_metadata.status === 'nouveau' ? 'Nouveau bachelier' : 'Ancien étudiant';
             
-            const container = document.getElementById('profileInfo');
-            container.innerHTML = `
+            document.getElementById('profileInfo').innerHTML = `
                 <div class="form-group">
                     <label>Email</label>
                     <p style="padding: 0.75rem; background: var(--bg-light); border-radius: 8px;"><strong>${user.email}</strong></p>
@@ -1904,17 +1754,92 @@
             `;
         }
 
-        // Edit Profile
-        function editProfile() {
-            alert('Fonctionnalité de modification du profil à venir!');
+        // Load mentorship
+        async function loadMentorship() {
+            const container = document.getElementById('mentorshipInfo');
+            const userStatus = currentUser.user_metadata.status;
+
+            if (userStatus === 'nouveau') {
+                const { data } = await supabase
+                    .from('mentorship')
+                    .select(`
+                        *,
+                        mentor:profiles!mentorship_mentor_id_fkey(full_name, phone, ufr)
+                    `)
+                    .eq('mentee_id', currentUser.id)
+                    .eq('status', 'active')
+                    .single();
+
+                if (data && data.mentor) {
+                    container.innerHTML = `
+                        <div class="action-card">
+                            <h4>👨‍🏫 Votre Mentor</h4>
+                            <p style="margin-top: 1rem;"><strong>Nom :</strong> ${data.mentor.full_name || 'N/A'}</p>
+                            <p><strong>UFR :</strong> ${data.mentor.ufr || 'N/A'}</p>
+                            <p><strong>Téléphone :</strong> ${data.mentor.phone || 'N/A'}</p>
+                            <p style="margin-top: 1rem; color: #65676b;">Votre mentor vous accompagne dans vos cours, TD, TP et examens.</p>
+                        </div>
+                    `;
+                } else {
+                    container.innerHTML = `
+                        <div class="action-card">
+                            <p style="color: #65676b;">Vous n'avez pas encore de mentor. Contactez l'administration AEESS pour être jumelé.</p>
+                        </div>
+                    `;
+                }
+            } else {
+                const { data } = await supabase
+                    .from('mentorship')
+                    .select(`
+                        *,
+                        mentee:profiles!mentorship_mentee_id_fkey(full_name, phone, ufr, year)
+                    `)
+                    .eq('mentor_id', currentUser.id)
+                    .eq('status', 'active');
+
+                if (data && data.length > 0) {
+                    container.innerHTML = `
+                        <h4 style="margin-bottom: 1rem;">👥 Vos Filleuls</h4>
+                        ${data.map(m => `
+                            <div class="action-card" style="margin-bottom: 1rem;">
+                                <p><strong>Nom :</strong> ${m.mentee.full_name || 'N/A'}</p>
+                                <p><strong>UFR :</strong> ${m.mentee.ufr || 'N/A'}</p>
+                                <p><strong>Année :</strong> ${m.mentee.year || 'N/A'}</p>
+                                <p><strong>Téléphone :</strong> ${m.mentee.phone || 'N/A'}</p>
+                            </div>
+                        `).join('')}
+                    `;
+                } else {
+                    container.innerHTML = `
+                        <div class="action-card">
+                            <p style="color: #65676b;">Vous n'êtes pas encore mentor. Proposez-vous pour accompagner un nouveau!</p>
+                        </div>
+                    `;
+                }
+            }
         }
 
-        // Utility: Get Time Ago
+        // Search content
+        function searchContent() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            if (!query) {
+                loadSocialPosts();
+                return;
+            }
+
+            const posts = document.querySelectorAll('.post-card');
+            posts.forEach(post => {
+                const content = post.textContent.toLowerCase();
+                post.style.display = content.includes(query) ? 'block' : 'none';
+            });
+        }
+
+        // Utility functions
         function getTimeAgo(date) {
             const seconds = Math.floor((new Date() - date) / 1000);
             
             let interval = seconds / 31536000;
-            if (interval > 1) return Math.floor(interval) + " ans";
+            if (interval > 1) return Math.floor(interval) + " an" + (Math.floor(interval) > 1 ? "s" : "");
             
             interval = seconds / 2592000;
             if (interval > 1) return Math.floor(interval) + " mois";
@@ -1931,23 +1856,15 @@
             return "À l'instant";
         }
 
-        // Initialize app
-        checkAuth();
-
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) {
-                closeModal();
+        // Close modal on outside click
+        window.onclick = function(e) {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('active');
             }
         }
 
-        // Handle Enter key in comment inputs
-        document.addEventListener('keypress', function(e) {
-            if (e.target.classList.contains('comment-input') && e.key === 'Enter') {
-                const postId = e.target.id.replace('comment-input-', '');
-                addComment(postId);
-            }
-        });
+        // Initialize
+        checkAuth();
     </script>
 </body>
 </html>
