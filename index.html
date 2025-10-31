@@ -5,40 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AEESS - Réseau Étudiant</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary-green: #2d7a3e;
+            --light-green: #4a9d5f;
+            --dark-green: #1a5229;
+            --accent: #3a8c4f;
+            --bg-light: #f0f2f5;
+            --white: #ffffff;
+            --text-dark: #1c1e21;
+            --text-light: #65676b;
+            --border: #e4e6eb;
+            --hover-bg: #f2f3f5;
+            --shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --primary-green: #2d7a3e;
-            --light-green: #4a9d5f;
-            --dark-green: #1a5229;
-            --bg-light: #f0f2f5;
-            --white: #ffffff;
-            --text-dark: #333;
-            --border: #e4e6eb;
-            --hover-bg: #f2f3f5;
-        }
-
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             line-height: 1.6;
             color: var(--text-dark);
             background: var(--bg-light);
+            overflow-x: hidden;
         }
 
-        /* Navigation */
+        /* Navigation améliorée */
         nav {
             background: var(--white);
-            padding: 0.5rem 1rem;
+            padding: 0.75rem 1.5rem;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            border-bottom: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
         }
 
         .nav-container {
@@ -52,15 +61,28 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            font-size: 1.4rem;
-            font-weight: bold;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
             color: var(--primary-green);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
         }
 
         .nav-links {
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem;
             list-style: none;
         }
 
@@ -69,124 +91,301 @@
             text-decoration: none;
             padding: 0.5rem 1rem;
             border-radius: 8px;
-            transition: background 0.2s;
+            transition: var(--transition);
+            font-weight: 500;
+            position: relative;
         }
 
         .nav-links a:hover {
             background: var(--hover-bg);
+            color: var(--primary-green);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--primary-green);
+            transition: var(--transition);
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover::after {
+            width: 80%;
         }
 
         .btn {
-            padding: 0.6rem 1.2rem;
+            padding: 0.7rem 1.5rem;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 0.95rem;
             font-weight: 600;
-            transition: all 0.2s;
+            transition: var(--transition);
             text-decoration: none;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .btn-primary {
             background: var(--primary-green);
             color: var(--white);
+            box-shadow: 0 4px 12px rgba(45, 122, 62, 0.3);
         }
 
         .btn-primary:hover {
             background: var(--dark-green);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(45, 122, 62, 0.4);
         }
 
         .btn-secondary {
-            background: var(--bg-light);
+            background: var(--white);
             color: var(--primary-green);
             border: 1px solid var(--border);
         }
 
         .btn-secondary:hover {
             background: var(--hover-bg);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
-        /* Hero Section */
+        /* Hero Section améliorée */
         .hero {
             background: linear-gradient(135deg, var(--primary-green) 0%, var(--dark-green) 100%);
             color: var(--white);
-            padding: 4rem 2rem;
+            padding: 6rem 2rem;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="%23ffffff" opacity="0.05"><polygon points="1000,100 1000,0 0,100"></polygon></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
         .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.2s both;
         }
 
         .hero-stats {
             display: flex;
             justify-content: center;
             gap: 3rem;
-            margin-top: 2rem;
+            margin-top: 3rem;
             flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .stat {
+            text-align: center;
         }
 
         .stat-number {
             font-size: 2.5rem;
-            font-weight: bold;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #fff, #e8f5e9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        /* Sections publiques */
+        .hero-actions {
+            margin-top: 2.5rem;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        /* Sections publiques améliorées */
         section {
-            padding: 4rem 2rem;
+            padding: 5rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
         }
 
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
         h2 {
             color: var(--primary-green);
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
         }
 
         .actions-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
 
         .action-card {
             background: var(--white);
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 2.5rem 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
             border: 1px solid var(--border);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-green), var(--light-green));
+        }
+
+        .action-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .action-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-green);
+        }
+
+        .action-card h3 {
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
         }
 
         .crisis-alert {
-            background: #fff3cd;
-            border-left: 5px solid #ffc107;
-            padding: 2rem;
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            border-left: 5px solid #fdcb6e;
+            padding: 2.5rem;
             margin: 2rem 0;
-            border-radius: 8px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(253, 203, 110, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(253, 203, 110, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(253, 203, 110, 0); }
+        }
+
+        .payment-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
         }
 
         .payment-card {
             background: var(--white);
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 2.5rem 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
             text-align: center;
             border: 1px solid var(--border);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .payment-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-green), var(--light-green));
+        }
+
+        .payment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .payment-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-green);
         }
 
         .payment-number {
             font-size: 1.5rem;
-            font-weight: bold;
+            font-weight: 700;
             color: var(--primary-green);
             margin: 1rem 0;
+            background: var(--bg-light);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            display: inline-block;
         }
 
-        /* Espace Réseau Social */
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-out;
+        }
+
+        /* Social Dashboard amélioré */
         .social-dashboard {
             display: none;
             background: var(--bg-light);
@@ -195,15 +394,17 @@
 
         .social-dashboard.active {
             display: block;
+            animation: fadeIn 0.5s ease-out;
         }
 
         .social-header {
             background: var(--white);
             padding: 1rem 2rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow);
             position: sticky;
             top: 0;
             z-index: 1000;
+            backdrop-filter: blur(10px);
         }
 
         .social-nav {
@@ -212,51 +413,76 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 1rem;
+            gap: 1.5rem;
         }
 
         .social-logo {
             font-size: 1.5rem;
-            font-weight: bold;
+            font-weight: 700;
             color: var(--primary-green);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .social-search {
             flex: 1;
-            max-width: 400px;
+            max-width: 500px;
+            position: relative;
         }
 
         .social-search input {
             width: 100%;
-            padding: 0.7rem 1rem;
-            border: 1px solid #ddd;
-            border-radius: 20px;
-            font-size: 0.9rem;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            font-size: 0.95rem;
+            background: var(--bg-light);
+            transition: var(--transition);
+        }
+
+        .social-search input:focus {
+            outline: none;
+            background: var(--white);
+            box-shadow: 0 0 0 2px rgba(45, 122, 62, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
         }
 
         .social-actions {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.75rem;
         }
 
         .social-main {
             max-width: 1400px;
             margin: 2rem auto;
-            padding: 0 1rem;
+            padding: 0 1.5rem;
             display: grid;
             grid-template-columns: 280px 1fr 320px;
             gap: 2rem;
         }
 
-        /* Sidebar gauche */
+        /* Sidebar gauche amélioré */
         .sidebar-left {
             background: var(--white);
-            border-radius: 12px;
+            border-radius: var(--radius);
             padding: 1.5rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow);
             height: fit-content;
             position: sticky;
             top: 90px;
+            transition: var(--transition);
+        }
+
+        .sidebar-left:hover {
+            box-shadow: var(--shadow-lg);
         }
 
         .user-profile-card {
@@ -270,7 +496,7 @@
             width: 80px;
             height: 80px;
             border-radius: 50%;
-            background: var(--primary-green);
+            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
             color: var(--white);
             display: flex;
             align-items: center;
@@ -278,6 +504,7 @@
             font-size: 2rem;
             font-weight: bold;
             margin: 0 auto 1rem;
+            box-shadow: 0 4px 12px rgba(45, 122, 62, 0.3);
         }
 
         .sidebar-menu {
@@ -292,18 +519,21 @@
             display: flex;
             align-items: center;
             gap: 0.8rem;
-            padding: 0.8rem;
+            padding: 0.8rem 1rem;
             color: var(--text-dark);
             text-decoration: none;
             border-radius: 8px;
-            transition: background 0.3s;
+            transition: var(--transition);
+            font-weight: 500;
         }
 
-        .sidebar-menu a:hover {
-            background: var(--hover-bg);
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background: var(--primary-green);
+            color: var(--white);
+            transform: translateX(5px);
         }
 
-        /* Feed central */
+        /* Feed central amélioré */
         .news-feed {
             display: flex;
             flex-direction: column;
@@ -313,8 +543,13 @@
         .create-post-card {
             background: var(--white);
             padding: 1.5rem;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .create-post-card:hover {
+            box-shadow: var(--shadow-lg);
         }
 
         .post-input-container {
@@ -328,27 +563,30 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: var(--primary-green);
+            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
             color: var(--white);
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
             flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(45, 122, 62, 0.3);
         }
 
         .post-input {
             flex: 1;
-            padding: 1rem;
-            border: 1px solid #ddd;
-            border-radius: 25px;
+            padding: 1rem 1.5rem;
+            border: 1px solid var(--border);
+            border-radius: 24px;
             cursor: pointer;
             background: var(--bg-light);
-            color: #65676b;
+            color: var(--text-light);
+            transition: var(--transition);
+            font-size: 1rem;
         }
 
         .post-input:hover {
-            background: #e9ecef;
+            background: var(--hover-bg);
         }
 
         .post-actions-grid {
@@ -369,21 +607,30 @@
             background: none;
             border-radius: 8px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: var(--transition);
             color: var(--text-dark);
             font-size: 0.95rem;
+            font-weight: 500;
         }
 
         .post-action-btn:hover {
-            background: var(--bg-light);
+            background: var(--hover-bg);
+            transform: translateY(-2px);
         }
 
-        /* Post Card */
+        /* Post Card amélioré */
         .post-card {
             background: var(--white);
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
             overflow: hidden;
+            transition: var(--transition);
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .post-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-5px);
         }
 
         .post-header {
@@ -399,11 +646,12 @@
 
         .post-user-info h4 {
             margin-bottom: 0.2rem;
+            font-weight: 600;
         }
 
         .post-meta {
             font-size: 0.85rem;
-            color: #65676b;
+            color: var(--text-light);
         }
 
         .post-content {
@@ -416,6 +664,7 @@
             width: 100%;
             max-height: 500px;
             object-fit: cover;
+            border-radius: 8px;
         }
 
         .post-stats {
@@ -424,7 +673,7 @@
             padding: 0.8rem 1.5rem;
             border-top: 1px solid var(--border);
             font-size: 0.9rem;
-            color: #65676b;
+            color: var(--text-light);
         }
 
         .post-actions-buttons {
@@ -442,23 +691,24 @@
             border: none;
             background: none;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: var(--transition);
             color: var(--text-dark);
             font-weight: 600;
         }
 
         .post-action-button:hover {
-            background: var(--bg-light);
+            background: var(--hover-bg);
         }
 
         .post-action-button.liked {
             color: var(--primary-green);
         }
 
-        /* Comments */
+        /* Comments améliorés */
         .comments-section {
             padding: 1rem 1.5rem;
             border-top: 1px solid var(--border);
+            background: var(--bg-light);
         }
 
         .comment-input-container {
@@ -487,14 +737,15 @@
             padding: 0.65rem 1rem;
             border: 1px solid var(--border);
             border-radius: 24px;
-            background: var(--bg-light);
+            background: var(--white);
             font-size: 0.9rem;
             font-family: inherit;
+            transition: var(--transition);
         }
 
         .comment-input:focus {
             outline: none;
-            background: var(--white);
+            box-shadow: 0 0 0 2px rgba(45, 122, 62, 0.2);
         }
 
         .comment-list {
@@ -506,13 +757,15 @@
             display: flex;
             gap: 0.75rem;
             margin-top: 0.75rem;
+            animation: fadeIn 0.3s ease-out;
         }
 
         .comment-bubble {
-            background: var(--bg-light);
+            background: var(--white);
             padding: 0.75rem 1rem;
             border-radius: 18px;
             display: inline-block;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         .comment-author {
@@ -527,12 +780,12 @@
 
         .comment-time {
             font-size: 0.8rem;
-            color: #65676b;
+            color: var(--text-light);
             margin-top: 0.25rem;
             padding-left: 1rem;
         }
 
-        /* Sidebar droite */
+        /* Sidebar droite améliorée */
         .sidebar-right {
             height: fit-content;
             position: sticky;
@@ -541,17 +794,25 @@
 
         .sidebar-section {
             background: var(--white);
-            border-radius: 12px;
+            border-radius: var(--radius);
             padding: 1.5rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow);
             margin-bottom: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .sidebar-section:hover {
+            box-shadow: var(--shadow-lg);
         }
 
         .sidebar-title {
             font-weight: 600;
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             margin-bottom: 1rem;
             color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .event-item {
@@ -559,6 +820,14 @@
             gap: 1rem;
             padding: 1rem 0;
             border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .event-item:hover {
+            background: var(--hover-bg);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 0 -0.5rem;
         }
 
         .event-item:last-child {
@@ -566,12 +835,13 @@
         }
 
         .event-date {
-            background: var(--primary-green);
+            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
             color: var(--white);
             padding: 0.5rem;
             border-radius: 8px;
             text-align: center;
             min-width: 50px;
+            box-shadow: 0 2px 8px rgba(45, 122, 62, 0.3);
         }
 
         .event-day {
@@ -586,11 +856,12 @@
         .event-details h4 {
             margin-bottom: 0.3rem;
             font-size: 0.95rem;
+            font-weight: 600;
         }
 
         .event-details p {
             font-size: 0.85rem;
-            color: #65676b;
+            color: var(--text-light);
         }
 
         .user-suggestion {
@@ -599,6 +870,14 @@
             gap: 0.75rem;
             padding: 0.75rem 0;
             border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .user-suggestion:hover {
+            background: var(--hover-bg);
+            border-radius: 8px;
+            padding: 0.75rem;
+            margin: 0 -0.5rem;
         }
 
         .user-suggestion:last-child {
@@ -617,10 +896,28 @@
 
         .suggestion-meta {
             font-size: 0.8rem;
-            color: #65676b;
+            color: var(--text-light);
         }
 
-        /* Modal */
+        .add-friend-btn {
+            padding: 0.3rem 0.8rem;
+            border: 1px solid var(--primary-green);
+            background: none;
+            color: var(--primary-green);
+            border-radius: 15px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .add-friend-btn:hover {
+            background: var(--primary-green);
+            color: var(--white);
+            transform: scale(1.05);
+        }
+
+        /* Modal amélioré */
         .modal {
             display: none;
             position: fixed;
@@ -632,6 +929,8 @@
             z-index: 2000;
             align-items: center;
             justify-content: center;
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease-out;
         }
 
         .modal.active {
@@ -641,12 +940,14 @@
         .modal-content {
             background: var(--white);
             padding: 2rem;
-            border-radius: 12px;
+            border-radius: var(--radius);
             max-width: 500px;
             width: 90%;
             max-height: 90vh;
             overflow-y: auto;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            box-shadow: var(--shadow-lg);
+            animation: fadeInUp 0.4s ease-out;
+            position: relative;
         }
 
         .modal-header {
@@ -660,25 +961,28 @@
 
         .modal-header h3 {
             font-size: 1.3rem;
+            font-weight: 600;
         }
 
         .close-btn {
             background: none;
             border: none;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             cursor: pointer;
-            color: #65676b;
-            padding: 0;
+            color: var(--text-light);
+            padding: 0.25rem;
             width: 32px;
             height: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
+            transition: var(--transition);
         }
 
         .close-btn:hover {
-            background: var(--bg-light);
+            background: var(--hover-bg);
+            color: var(--text-dark);
         }
 
         .form-group {
@@ -690,17 +994,27 @@
             margin-bottom: 0.5rem;
             font-weight: 500;
             font-size: 0.95rem;
+            color: var(--text-dark);
         }
 
         .form-group input,
         .form-group select,
         .form-group textarea {
             width: 100%;
-            padding: 0.75rem;
+            padding: 0.75rem 1rem;
             border: 1px solid var(--border);
             border-radius: 8px;
             font-size: 1rem;
             font-family: inherit;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 2px rgba(45, 122, 62, 0.2);
         }
 
         textarea {
@@ -728,20 +1042,26 @@
             cursor: pointer;
             padding: 0.5rem;
             border-radius: 8px;
-            transition: background 0.2s;
+            transition: var(--transition);
+            color: var(--text-light);
         }
 
         .post-option-btn:hover {
-            background: var(--bg-light);
+            background: var(--hover-bg);
+            color: var(--primary-green);
+            transform: scale(1.1);
         }
 
         #postPreview {
             margin-top: 1rem;
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         #postPreview img {
             max-width: 100%;
             border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .hidden {
@@ -772,9 +1092,44 @@
             position: absolute;
             bottom: 0;
             right: 0;
+            box-shadow: 0 0 0 2px var(--primary-green);
         }
 
-        /* Responsive */
+        /* Footer amélioré */
+        footer {
+            background: linear-gradient(135deg, var(--dark-green), var(--primary-green));
+            color: var(--white);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+            opacity: 0.9;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        /* Responsive amélioré */
         @media (max-width: 1200px) {
             .social-main {
                 grid-template-columns: 1fr;
@@ -799,6 +1154,14 @@
                 display: none;
             }
 
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
             .social-search {
                 max-width: 200px;
             }
@@ -806,14 +1169,54 @@
             .social-actions {
                 gap: 0.25rem;
             }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            section {
+                padding: 3rem 1.5rem;
+            }
         }
 
-        footer {
+        /* Scrollbar personnalisée */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-light);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-green);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
             background: var(--dark-green);
-            color: var(--white);
-            padding: 2rem;
-            text-align: center;
-            margin-top: 3rem;
+        }
+
+        /* Loading states */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        /* Notification badge */
+        .notification-badge {
+            background: #ff4757;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: -5px;
+            right: -5px;
         }
     </style>
 </head>
@@ -821,9 +1224,12 @@
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <div class="logo">
-                🎓 AEESS
-            </div>
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <span>AEESS</span>
+            </a>
             <ul class="nav-links" id="publicNav">
                 <li><a href="#accueil">Accueil</a></li>
                 <li><a href="#apropos">À propos</a></li>
@@ -831,7 +1237,9 @@
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <div>
-                <button class="btn btn-primary" id="loginBtn" onclick="showLogin()">Connexion</button>
+                <button class="btn btn-primary" id="loginBtn" onclick="showLogin()">
+                    <i class="fas fa-sign-in-alt"></i> Connexion
+                </button>
             </div>
         </div>
     </nav>
@@ -839,46 +1247,66 @@
     <!-- Public Content -->
     <div id="publicContent">
         <section class="hero" id="accueil">
-            <h1>ENSEMBLE, SOUTENONS NOS ÉTUDIANTS</h1>
-            <p>L'Association des Élèves et Étudiants Soninké à Saint-Louis accueille et accompagne les nouveaux bacheliers orientés à l'Université Gaston Berger</p>
-            <div class="hero-stats">
-                <div class="stat">
-                    <div class="stat-number">30+</div>
-                    <div style="font-size: 1rem; opacity: 0.9;">Nouveaux étudiants 2025</div>
+            <div class="hero-content">
+                <h1>ENSEMBLE, SOUTENONS NOS ÉTUDIANTS</h1>
+                <p>L'Association des Élèves et Étudiants Soninké à Saint-Louis accueille et accompagne les nouveaux bacheliers orientés à l'Université Gaston Berger</p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">30+</div>
+                        <div>Nouveaux étudiants 2025</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">280K</div>
+                        <div>FCFA de caution payée</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">10+</div>
+                        <div>Années d'existence</div>
+                    </div>
                 </div>
-                <div class="stat">
-                    <div class="stat-number">280K</div>
-                    <div style="font-size: 1rem; opacity: 0.9;">FCFA de caution payée</div>
+                <div class="hero-actions">
+                    <a href="#dons" class="btn btn-secondary" style="margin-right: 1rem;">
+                        <i class="fas fa-hand-holding-heart"></i> Faire un don
+                    </a>
+                    <button class="btn btn-primary" onclick="showRegister()">
+                        <i class="fas fa-user-plus"></i> Devenir membre
+                    </button>
                 </div>
-                <div class="stat">
-                    <div class="stat-number">10+</div>
-                    <div style="font-size: 1rem; opacity: 0.9;">Années d'existence</div>
-                </div>
-            </div>
-            <div style="margin-top: 2rem;">
-                <a href="#dons" class="btn btn-secondary" style="margin-right: 1rem;">Faire un don</a>
-                <button class="btn btn-primary" onclick="showRegister()">Devenir membre</button>
             </div>
         </section>
 
         <section id="apropos">
-            <h2>À Propos de l'AEESS</h2>
+            <div class="section-header">
+                <h2>À Propos de l'AEESS</h2>
+                <p class="section-subtitle">Notre mission est d'accompagner les étudiants soninkés dans leur parcours universitaire à Saint-Louis</p>
+            </div>
             <div class="crisis-alert">
-                <h3>🏠 Notre Mission : Résoudre la Crise du Logement</h3>
+                <h3><i class="fas fa-home"></i> Notre Mission : Résoudre la Crise du Logement</h3>
                 <p>L'UGB manque d'infrastructures. En 2025, nous avons accueilli 30 nouveaux bacheliers. La caution d'un appartement coûte 280 000 FCFA, les loyers varient de 30 000 à 50 000 FCFA/mois. Nous avons prélevé 150 000 FCFA de notre caisse. Sans votre aide, notre mission est compromise.</p>
             </div>
         </section>
 
         <section id="dons">
-            <h2>💚 Soutenez-nous</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem;">
+            <div class="section-header">
+                <h2><i class="fas fa-heart"></i> Soutenez-nous</h2>
+                <p class="section-subtitle">Votre contribution permet d'offrir un toit et un accompagnement à nos étudiants</p>
+            </div>
+            <div class="payment-cards">
                 <div class="payment-card">
-                    <h3>📱 Wave</h3>
+                    <div class="payment-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Wave</h3>
                     <div class="payment-number">78 247 74 12</div>
+                    <p>Envoyez votre contribution via Wave</p>
                 </div>
                 <div class="payment-card">
-                    <h3>📱 Orange Money</h3>
+                    <div class="payment-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Orange Money</h3>
                     <div class="payment-number">78 488 89 04</div>
+                    <p>Envoyez votre contribution via Orange Money</p>
                 </div>
             </div>
             <p style="text-align: center; margin-top: 2rem; font-style: italic;">
@@ -887,11 +1315,14 @@
         </section>
 
         <section id="contact">
-            <h2>📞 Contactez-nous</h2>
+            <div class="section-header">
+                <h2><i class="fas fa-phone-alt"></i> Contactez-nous</h2>
+                <p class="section-subtitle">N'hésitez pas à nous contacter pour toute information supplémentaire</p>
+            </div>
             <div class="action-card" style="max-width: 600px; margin: 0 auto; text-align: center;">
-                <p><strong>Email :</strong> aeesssonikara@gmail.com</p>
-                <p><strong>Téléphone :</strong> +221 78 374 89 95</p>
-                <p><strong>Localisation :</strong> Sanar Peul, Saint-Louis, Sénégal</p>
+                <p><i class="fas fa-envelope"></i> <strong>Email :</strong> aeesssonikara@gmail.com</p>
+                <p><i class="fas fa-phone"></i> <strong>Téléphone :</strong> +221 78 374 89 95</p>
+                <p><i class="fas fa-map-marker-alt"></i> <strong>Localisation :</strong> Sanar Peul, Saint-Louis, Sénégal</p>
             </div>
         </section>
     </div>
@@ -900,15 +1331,26 @@
     <div id="socialDashboard" class="social-dashboard">
         <header class="social-header">
             <div class="social-nav">
-                <div class="social-logo">AEESS Network</div>
+                <div class="social-logo">
+                    <i class="fas fa-graduation-cap"></i> AEESS Network
+                </div>
                 <div class="social-search">
+                    <i class="fas fa-search search-icon"></i>
                     <input type="text" id="searchInput" placeholder="Rechercher..." onkeyup="searchContent()">
                 </div>
                 <div class="social-actions">
-                    <button class="btn btn-primary" onclick="showDashboardSection('feed')">🏠</button>
-                    <button class="btn btn-secondary" onclick="showDashboardSection('documents')">📚</button>
-                    <button class="btn btn-secondary" onclick="showDashboardSection('events')">📅</button>
-                    <button class="btn btn-secondary" onclick="logout()">🚪</button>
+                    <button class="btn btn-primary" onclick="showDashboardSection('feed')">
+                        <i class="fas fa-home"></i>
+                    </button>
+                    <button class="btn btn-secondary" onclick="showDashboardSection('documents')">
+                        <i class="fas fa-file-alt"></i>
+                    </button>
+                    <button class="btn btn-secondary" onclick="showDashboardSection('events')">
+                        <i class="fas fa-calendar-alt"></i>
+                    </button>
+                    <button class="btn btn-secondary" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
                 </div>
             </div>
         </header>
@@ -922,11 +1364,21 @@
                     <p id="userUFR" style="color: #65676b; font-size: 0.9rem;"></p>
                 </div>
                 <ul class="sidebar-menu">
-                    <li><a href="#" onclick="showDashboardSection('feed')"><span>🏠</span> Fil d'actualité</a></li>
-                    <li><a href="#" onclick="showDashboardSection('profile')"><span>👤</span> Mon profil</a></li>
-                    <li><a href="#" onclick="showDashboardSection('documents')"><span>📚</span> Documents</a></li>
-                    <li><a href="#" onclick="showDashboardSection('events')"><span>📅</span> Événements</a></li>
-                    <li><a href="#" onclick="showDashboardSection('mentorship')"><span>🤝</span> Mentorat</a></li>
+                    <li><a href="#" onclick="showDashboardSection('feed')" class="active">
+                        <i class="fas fa-home"></i> Fil d'actualité
+                    </a></li>
+                    <li><a href="#" onclick="showDashboardSection('profile')">
+                        <i class="fas fa-user"></i> Mon profil
+                    </a></li>
+                    <li><a href="#" onclick="showDashboardSection('documents')">
+                        <i class="fas fa-file-alt"></i> Documents
+                    </a></li>
+                    <li><a href="#" onclick="showDashboardSection('events')">
+                        <i class="fas fa-calendar-alt"></i> Événements
+                    </a></li>
+                    <li><a href="#" onclick="showDashboardSection('mentorship')">
+                        <i class="fas fa-hands-helping"></i> Mentorat
+                    </a></li>
                 </ul>
             </aside>
 
@@ -941,13 +1393,13 @@
                     </div>
                     <div class="post-actions-grid">
                         <button class="post-action-btn" onclick="showPostModal()">
-                            <span>📷</span> Photo
+                            <i class="fas fa-image"></i> Photo
                         </button>
                         <button class="post-action-btn" onclick="showPostModal()">
-                            <span>📄</span> Document
+                            <i class="fas fa-file"></i> Document
                         </button>
                         <button class="post-action-btn" onclick="showPostModal()">
-                            <span>📅</span> Événement
+                            <i class="fas fa-calendar-plus"></i> Événement
                         </button>
                     </div>
                 </div>
@@ -957,98 +1409,21 @@
                 </div>
             </section>
 
-            <!-- Documents Section (hidden by default) -->
-            <section class="news-feed hidden" id="documentsSection">
-                <div class="create-post-card">
-                    <h3>📤 Ajouter un document</h3>
-                    <div class="form-group">
-                        <label>Titre</label>
-                        <input type="text" id="docTitle" placeholder="Ex: Cours de Mathématiques L1">
-                    </div>
-                    <div class="form-group">
-                        <label>UFR</label>
-                        <select id="docUFR">
-                            <option value="">Sélectionner UFR</option>
-                            <option value="SAT">Sciences Appliquées et Technologie</option>
-                            <option value="LSH">Lettres et Sciences Humaines</option>
-                            <option value="SEG">Sciences Économiques et Gestion</option>
-                            <option value="SJP">Sciences Juridiques et Politiques</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Fichier</label>
-                        <input type="file" id="docFile">
-                    </div>
-                    <button class="btn btn-primary" onclick="uploadDocument()">Télécharger</button>
-                </div>
-                <div id="documentsGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
-                    <div class="spinner"></div>
-                </div>
-            </section>
-
-            <!-- Events Section (hidden by default) -->
-            <section class="news-feed hidden" id="eventsSection">
-                <div class="create-post-card">
-                    <h3>➕ Créer un événement</h3>
-                    <div class="form-group">
-                        <label>Titre</label>
-                        <input type="text" id="eventTitle" placeholder="Ex: Match de football">
-                    </div>
-                    <div class="form-group">
-                        <label>Description</label>
-                        <textarea id="eventDesc" rows="3"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Date</label>
-                        <input type="datetime-local" id="eventDate">
-                    </div>
-                    <div class="form-group">
-                        <label>Lieu</label>
-                        <input type="text" id="eventLocation">
-                    </div>
-                    <button class="btn btn-primary" onclick="createEvent()">Créer</button>
-                </div>
-                <div id="eventsGrid">
-                    <div class="spinner"></div>
-                </div>
-            </section>
-
-            <!-- Profile Section (hidden by default) -->
-            <section class="news-feed hidden" id="profileSection">
-                <div class="create-post-card">
-                    <div style="text-align: center; padding: 1rem;">
-                        <div class="user-avatar-big" id="profileAvatar" style="margin: 0 auto 1rem;">U</div>
-                        <h2 id="profileName">Utilisateur</h2>
-                        <p id="profileStatus" style="color: #65676b;"></p>
-                    </div>
-                </div>
-                <div class="create-post-card" style="margin-top: 1rem;">
-                    <h3 style="margin-bottom: 1rem;">Informations</h3>
-                    <div id="profileInfo"></div>
-                </div>
-            </section>
-
-            <!-- Mentorship Section (hidden by default) -->
-            <section class="news-feed hidden" id="mentorshipSection">
-                <div class="create-post-card">
-                    <h3>🤝 Mon Programme de Mentorat</h3>
-                    <div id="mentorshipInfo" style="margin-top: 1rem;">
-                        <div class="spinner"></div>
-                    </div>
-                </div>
-            </section>
-
             <!-- Sidebar droite -->
             <aside class="sidebar-right">
                 <div class="sidebar-section">
-                    <div class="sidebar-title">📅 Événements à venir</div>
+                    <div class="sidebar-title">
+                        <i class="fas fa-calendar-alt"></i> Événements à venir
+                    </div>
                     <div id="upcomingEventsList">
                         <p style="color: #65676b; font-size: 0.9rem;">Chargement...</p>
                     </div>
                 </div>
 
                 <div class="sidebar-section">
-                    <div class="sidebar-title">👥 Membres suggérés</div>
+                    <div class="sidebar-title">
+                        <i class="fas fa-users"></i> Membres suggérés
+                    </div>
                     <div id="suggestedUsers">
                         <p style="color: #65676b; font-size: 0.9rem;">Chargement...</p>
                     </div>
@@ -1069,7 +1444,9 @@
                     <div class="post-avatar-small" id="modalUserAvatar">U</div>
                     <div>
                         <strong id="modalUserName">Utilisateur</strong>
-                        <div style="font-size: 0.85rem; color: #65676b; margin-top: 0.2rem;">🌍 Public</div>
+                        <div style="font-size: 0.85rem; color: #65676b; margin-top: 0.2rem;">
+                            <i class="fas fa-globe-americas"></i> Public
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -1080,10 +1457,10 @@
             <div class="modal-footer">
                 <div class="post-options">
                     <button class="post-option-btn" onclick="triggerFileInput('image')" title="Photo">
-                        <span style="font-size: 1.5rem;">📷</span>
+                        <i class="fas fa-image"></i>
                     </button>
                     <button class="post-option-btn" onclick="triggerFileInput('document')" title="Document">
-                        <span style="font-size: 1.5rem;">📄</span>
+                        <i class="fas fa-file"></i>
                     </button>
                 </div>
                 <button class="btn btn-primary" onclick="createSocialPost()">Publier</button>
@@ -1100,14 +1477,16 @@
             </div>
             <form onsubmit="login(event)">
                 <div class="form-group">
-                    <label>Email</label>
+                    <label><i class="fas fa-envelope"></i> Email</label>
                     <input type="email" id="loginEmail" required>
                 </div>
                 <div class="form-group">
-                    <label>Mot de passe</label>
+                    <label><i class="fas fa-lock"></i> Mot de passe</label>
                     <input type="password" id="loginPassword" required>
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Se connecter</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    <i class="fas fa-sign-in-alt"></i> Se connecter
+                </button>
                 <p style="text-align: center; margin-top: 1rem;">
                     Pas encore membre ? <a href="#" onclick="showRegister()" style="color: var(--primary-green);">S'inscrire</a>
                 </p>
@@ -1124,23 +1503,23 @@
             </div>
             <form onsubmit="register(event)">
                 <div class="form-group">
-                    <label>Nom complet</label>
+                    <label><i class="fas fa-user"></i> Nom complet</label>
                     <input type="text" id="registerName" required>
                 </div>
                 <div class="form-group">
-                    <label>Email</label>
+                    <label><i class="fas fa-envelope"></i> Email</label>
                     <input type="email" id="registerEmail" required>
                 </div>
                 <div class="form-group">
-                    <label>Mot de passe</label>
+                    <label><i class="fas fa-lock"></i> Mot de passe</label>
                     <input type="password" id="registerPassword" required minlength="6">
                 </div>
                 <div class="form-group">
-                    <label>Téléphone</label>
+                    <label><i class="fas fa-phone"></i> Téléphone</label>
                     <input type="tel" id="registerPhone" required>
                 </div>
                 <div class="form-group">
-                    <label>UFR</label>
+                    <label><i class="fas fa-university"></i> UFR</label>
                     <select id="registerUFR" required>
                         <option value="">Sélectionner</option>
                         <option value="SAT">Sciences Appliquées et Technologie</option>
@@ -1150,7 +1529,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Année d'études</label>
+                    <label><i class="fas fa-graduation-cap"></i> Année d'études</label>
                     <select id="registerYear" required>
                         <option value="">Sélectionner</option>
                         <option value="L1">Licence 1</option>
@@ -1161,14 +1540,16 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Statut</label>
+                    <label><i class="fas fa-user-tag"></i> Statut</label>
                     <select id="registerStatus" required>
                         <option value="">Sélectionner</option>
                         <option value="nouveau">Nouveau bachelier</option>
                         <option value="ancien">Ancien étudiant</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">S'inscrire</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    <i class="fas fa-user-plus"></i> S'inscrire
+                </button>
                 <p style="text-align: center; margin-top: 1rem;">
                     Déjà membre ? <a href="#" onclick="showLogin()" style="color: var(--primary-green);">Se connecter</a>
                 </p>
@@ -1179,8 +1560,16 @@
     <input type="file" id="fileInput" style="display: none;" accept="image/*,.pdf,.doc,.docx" onchange="handleFileSelect(event)">
 
     <footer>
-        <p>&copy; 2025 AEESS - Association des Élèves et Étudiants Soninké à Saint-Louis</p>
-        <p>Soninkara djiké na rémou nè</p>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#accueil">Accueil</a>
+                <a href="#apropos">À propos</a>
+                <a href="#dons">Soutenez-nous</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <p>&copy; 2025 AEESS - Association des Élèves et Étudiants Soninké à Saint-Louis</p>
+            <p>Soninkara djiké na rémou nè</p>
+        </div>
     </footer>
 
     <script>
@@ -1345,7 +1734,10 @@
             if (selectedFile.type.startsWith('image/')) {
                 preview.innerHTML = `<img src="${URL.createObjectURL(selectedFile)}" style="max-width: 100%; border-radius: 8px;">`;
             } else {
-                preview.innerHTML = `<div style="padding: 1rem; background: var(--bg-light); border-radius: 8px;">📄 ${selectedFile.name}</div>`;
+                preview.innerHTML = `<div style="padding: 1rem; background: var(--bg-light); border-radius: 8px;">
+                    <i class="fas fa-file" style="font-size: 2rem; margin-right: 0.5rem;"></i>
+                    <strong>${selectedFile.name}</strong>
+                </div>`;
             }
         }
 
@@ -1451,23 +1843,23 @@
                     ${post.media_url ? (post.media_type === 'image' ? 
                         `<img src="${post.media_url}" class="post-image">` : 
                         `<div style="padding: 1rem; background: var(--bg-light); border-radius: 8px; margin-top: 1rem; text-align: center;">
-                            <div style="font-size: 2rem;">📄</div>
-                            <a href="${post.media_url}" target="_blank">Télécharger le document</a>
+                            <i class="fas fa-file" style="font-size: 2rem; margin-bottom: 0.5rem;"></i>
+                            <div><a href="${post.media_url}" target="_blank">Télécharger le document</a></div>
                         </div>`) : ''}
                 </div>
                 <div class="post-stats">
-                    <span>👍 ${likes ? likes.length : 0} j'aime</span>
-                    <span>💬 ${comments ? comments.length : 0} commentaires</span>
+                    <span><i class="fas fa-thumbs-up"></i> ${likes ? likes.length : 0} j'aime</span>
+                    <span><i class="fas fa-comment"></i> ${comments ? comments.length : 0} commentaires</span>
                 </div>
                 <div class="post-actions-buttons">
                     <button class="post-action-button ${userLike ? 'liked' : ''}" onclick="toggleLike('${post.id}')">
-                        <span>👍</span> J'aime
+                        <i class="fas fa-thumbs-up"></i> J'aime
                     </button>
                     <button class="post-action-button" onclick="toggleComments('${post.id}')">
-                        <span>💬</span> Commenter
+                        <i class="fas fa-comment"></i> Commenter
                     </button>
                     <button class="post-action-button">
-                        <span>🔄</span> Partager
+                        <i class="fas fa-share"></i> Partager
                     </button>
                 </div>
                 <div id="comments-${post.id}" class="comments-section hidden">
@@ -1557,112 +1949,6 @@
             }).join('');
         }
 
-        // Upload document
-        async function uploadDocument() {
-            const title = document.getElementById('docTitle').value;
-            const ufr = document.getElementById('docUFR').value;
-            const file = document.getElementById('docFile').files[0];
-
-            if (!title || !ufr || !file) {
-                alert('Remplissez tous les champs');
-                return;
-            }
-
-            const fileName = `${Date.now()}_${file.name}`;
-            const { error: uploadError } = await supabase.storage.from('documents').upload(fileName, file);
-
-            if (uploadError) {
-                alert('Erreur: ' + uploadError.message);
-                return;
-            }
-
-            const { data: urlData } = supabase.storage.from('documents').getPublicUrl(fileName);
-            
-            const { error } = await supabase.from('documents').insert([{
-                title, ufr,
-                file_url: urlData.publicUrl,
-                uploaded_by: currentUser.id,
-                uploader_name: currentUser.user_metadata.full_name
-            }]);
-
-            if (!error) {
-                document.getElementById('docTitle').value = '';
-                document.getElementById('docUFR').value = '';
-                document.getElementById('docFile').value = '';
-                loadDocuments();
-            }
-        }
-
-        // Load documents
-        async function loadDocuments() {
-            const { data } = await supabase.from('documents').select('*').order('created_at', { ascending: false });
-            const container = document.getElementById('documentsGrid');
-            
-            if (!data || data.length === 0) {
-                container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #65676b;">Aucun document</p>';
-                return;
-            }
-
-            container.innerHTML = data.map(d => `
-                <div class="action-card" style="text-align: center; cursor: pointer;" onclick="window.open('${d.file_url}')">
-                    <div style="font-size: 3rem;">📄</div>
-                    <strong style="display: block; margin: 0.5rem 0;">${d.title}</strong>
-                    <div style="font-size: 0.85rem; color: #65676b;">${d.ufr}</div>
-                    <div style="font-size: 0.8rem; color: #999; margin-top: 0.3rem;">${d.uploader_name || 'Anonyme'}</div>
-                </div>
-            `).join('');
-        }
-
-        // Create event
-        async function createEvent() {
-            const title = document.getElementById('eventTitle').value;
-            const desc = document.getElementById('eventDesc').value;
-            const date = document.getElementById('eventDate').value;
-            const location = document.getElementById('eventLocation').value;
-
-            if (!title || !date) {
-                alert('Titre et date requis');
-                return;
-            }
-
-            const { error } = await supabase.from('events').insert([{
-                title, description: desc, event_date: date, location,
-                created_by: currentUser.id
-            }]);
-
-            if (!error) {
-                document.getElementById('eventTitle').value = '';
-                document.getElementById('eventDesc').value = '';
-                document.getElementById('eventDate').value = '';
-                document.getElementById('eventLocation').value = '';
-                loadEvents();
-                loadUpcomingEvents();
-            }
-        }
-
-        // Load events
-        async function loadEvents() {
-            const { data } = await supabase.from('events').select('*').order('event_date', { ascending: true });
-            const container = document.getElementById('eventsGrid');
-            
-            if (!data || data.length === 0) {
-                container.innerHTML = '<div class="action-card"><p style="text-align: center; color: #65676b;">Aucun événement</p></div>';
-                return;
-            }
-
-            container.innerHTML = data.map(e => {
-                const d = new Date(e.event_date);
-                return `
-                    <div class="action-card">
-                        <h3>${e.title}</h3>
-                        <p><strong>📅</strong> ${d.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
-                        ${e.location ? `<p><strong>📍</strong> ${e.location}</p>` : ''}
-                        ${e.description ? `<p style="margin-top: 1rem;">${e.description}</p>` : ''}
-                    </div>
-                `;
-            }).join('');
-        }
-
         // Load upcoming events (sidebar)
         async function loadUpcomingEvents() {
             const { data } = await supabase
@@ -1689,7 +1975,7 @@
                         </div>
                         <div class="event-details">
                             <h4>${e.title}</h4>
-                            <p>🕒 ${d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}</p>
+                            <p><i class="fas fa-clock"></i> ${d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}</p>
                         </div>
                     </div>
                 `;
@@ -1720,6 +2006,7 @@
                             <div class="suggestion-name">${u.full_name || 'Utilisateur'}</div>
                             <div class="suggestion-meta">${u.ufr || ''} • ${u.year || ''}</div>
                         </div>
+                        <button class="add-friend-btn">Ajouter</button>
                     </div>
                 `;
             }).join('');
@@ -1736,19 +2023,19 @@
             
             document.getElementById('profileInfo').innerHTML = `
                 <div class="form-group">
-                    <label>Email</label>
+                    <label><i class="fas fa-envelope"></i> Email</label>
                     <p style="padding: 0.75rem; background: var(--bg-light); border-radius: 8px;"><strong>${user.email}</strong></p>
                 </div>
                 <div class="form-group">
-                    <label>Téléphone</label>
+                    <label><i class="fas fa-phone"></i> Téléphone</label>
                     <p style="padding: 0.75rem; background: var(--bg-light); border-radius: 8px;"><strong>${user.user_metadata.phone || 'Non renseigné'}</strong></p>
                 </div>
                 <div class="form-group">
-                    <label>UFR</label>
+                    <label><i class="fas fa-university"></i> UFR</label>
                     <p style="padding: 0.75rem; background: var(--bg-light); border-radius: 8px;"><strong>${user.user_metadata.ufr || 'Non renseigné'}</strong></p>
                 </div>
                 <div class="form-group">
-                    <label>Année d'études</label>
+                    <label><i class="fas fa-graduation-cap"></i> Année d'études</label>
                     <p style="padding: 0.75rem; background: var(--bg-light); border-radius: 8px;"><strong>${user.user_metadata.year || 'Non renseigné'}</strong></p>
                 </div>
             `;
@@ -1773,7 +2060,7 @@
                 if (data && data.mentor) {
                     container.innerHTML = `
                         <div class="action-card">
-                            <h4>👨‍🏫 Votre Mentor</h4>
+                            <h4><i class="fas fa-user-graduate"></i> Votre Mentor</h4>
                             <p style="margin-top: 1rem;"><strong>Nom :</strong> ${data.mentor.full_name || 'N/A'}</p>
                             <p><strong>UFR :</strong> ${data.mentor.ufr || 'N/A'}</p>
                             <p><strong>Téléphone :</strong> ${data.mentor.phone || 'N/A'}</p>
@@ -1799,7 +2086,7 @@
 
                 if (data && data.length > 0) {
                     container.innerHTML = `
-                        <h4 style="margin-bottom: 1rem;">👥 Vos Filleuls</h4>
+                        <h4 style="margin-bottom: 1rem;"><i class="fas fa-users"></i> Vos Filleuls</h4>
                         ${data.map(m => `
                             <div class="action-card" style="margin-bottom: 1rem;">
                                 <p><strong>Nom :</strong> ${m.mentee.full_name || 'N/A'}</p>
